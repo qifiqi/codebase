@@ -1,0 +1,66 @@
+列表
+简单GET
+    https://steamcommunity.com/workshop/browse/?appid=431960&browsesort=trend&section=readytouseitems&days=90&actualsort=trend&p=1000
+GET https://steamcommunity.com/workshop/browse/?appid=431960&browsesort=mostrecent&section=readytouseitems&requiredtags%5B0%5D=Girls&requiredtags%5B1%5D=Mature&created_date_range_filter_start=0&created_date_range_filter_end=0&updated_date_range_filter_start=0&updated_date_range_filter_end=0&actualsort=mostrecent&p=1 HTTP/1.1
+
+Host: steamcommunity.com
+Connection: keep-alive
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Cookie: timezoneOffset=28800,0; _ga=GA1.2.940594228.1649389155; browserid=2541727184154055939; steamMachineAuth76561199034509976=D2F4E13358FCB45178EE065A0315FCA73696A33E; recentlyVisitedAppHubs=977950%2C431960; Steam_Language=schinese; steamLogin=76561199034509976%7c%7c6B85A63B660D6BCFCF51286401DA1352130106A3; sessionid=48ac7f43c57fe0a8335788f8; steamLoginSecure=76561199034509976%7c%7cABF0FBFB2CA46F2995F761A99280947C3D57245B; clientsessionid=2dee100e03d9dc91; _gid=GA1.2.1743268649.1658548743; app_impressions=431960@2_9_100000_|431960@2_9_100013_|431960@2_9_100013_|431960@2_100100_100101_100103|431960@2_9_100013_|431960@2_100100_100101_100103|431960@2_9_100013_|431960@2_100100_230_|431960@2_100100_230_|431960@2_100100_230_
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; en-US; Valve Steam Client/default/1654574690; ) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: https://steamcommunity.com/workshop/browse/?appid=431960&browsesort=trend&section=readytouseitems&days=90&actualsort=trend&p=3
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7
+
+参数：
+    appid=431960 软件ip
+    browsesort=trend
+    section=readytouseitems
+    days=90
+    actualsort=trend
+    p=1000 页数
+
+2
+appid=431960
+searchtext=
+childpublishedfileid=0
+browsesort=mostrecent
+section=readytouseitems
+requiredtags%5B0%5D=Questionable
+created_date_range_filter_start=0
+created_date_range_filter_end=0
+updated_date_range_filter_start=0
+updated_date_range_filter_end=0
+actualsort=mostrecent
+p=2
+
+订阅地址：
+POST
+    https://steamcommunity.com/sharedfiles/subscribe
+    HTTP/1.1
+
+Host: steamcommunity.com
+Connection: keep-alive
+Content-Length: 61
+Accept: */*
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+
+Cookie: timezoneOffset=28800,0; _ga=GA1.2.940594228.1649389155; browserid=2541727184154055939; steamMachineAuth76561199034509976=D2F4E13358FCB45178EE065A0315FCA73696A33E; recentlyVisitedAppHubs=977950%2C431960; Steam_Language=schinese; steamLogin=76561199034509976%7c%7c6B85A63B660D6BCFCF51286401DA1352130106A3; sessionid=48ac7f43c57fe0a8335788f8; steamLoginSecure=76561199034509976%7c%7cABF0FBFB2CA46F2995F761A99280947C3D57245B; clientsessionid=2dee100e03d9dc91; _gid=GA1.2.1743268649.1658548743; app_impressions=431960@2_9_100000_|431960@2_9_100013_|431960@2_9_100013_|431960@2_100100_100101_100103|431960@2_9_100013_|431960@2_100100_100101_100103|431960@2_9_100013_|431960@2_100100_230_|431960@2_100100_230_|431960@2_100100_230_|431960@2_100100_230_
+Origin: https://steamcommunity.com
+User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.2; en-US; Valve Steam Client/default/1654574690; ) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36
+X-Requested-With: XMLHttpRequest
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://steamcommunity.com/workshop/browse/?appid=431960&browsesort=trend&section=readytouseitems&days=90&actualsort=trend&p=1000
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7
+参数
+    id=2666768944 具体每一个工坊物品id
+    appid=431960 软件id
+    sessionid=48ac7f43c57fe0a8335788f8 cookie中有

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../jquery-3.6.0.min.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+<p>
+    username:<input type="text" id="username">
+    <span style="color: red"></span>
+</p>
+<p>
+    password:<input type="text" id="password">
+    <span style="color: red"></span>
+</p>
+<button id="but1">提交</button>
+<script>
+    let $username = $('#username');
+    let $password = $('#password');
+    $('#but1').click(function () {
+        let uname = $username.val();
+        console.log(uname)
+        let pwd = $password.val();
+        if (! uname) {
+            $username.next().text('username is not none')
+        }
+        if (!pwd){
+            $password.next().text('password is not none')
+        }
+    });
+    $('input').focus(function () {
+        $(this).next().text('')
+    })
+</script>
+</body>
+</html>

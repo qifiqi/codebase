@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>省市联动</title>
+</head>
+<body>
+<select name="sel1" id="sel1">
+    <option value="">请选择</option>
+</select>
+<select name="sel2" id="sel2">
+
+</select>
+<script>
+    let proselELe = document.getElementById('sel1')
+    let ctselELe = document.getElementById('sel2')
+
+    //模拟省市数据
+    data = {
+        '河北': ['廊坊', '邯郸'],
+        '北京': ['朝阳', '海淀'],
+        '长沙': ['天心', '雨花'],
+
+    }
+    // for循环获取省
+    for (let key in data) {
+        // 将省信息做成一个个的option标签，添加到第一个select框中
+        // 1.创建option标签
+        let optEle = document.createElement('option');
+        optEle.innerText = key;
+        // 设置value值
+        optEle.value = key;
+        // 将创建好的option标签加入到第一个select标签;
+        proselELe.appendChild(optEle);
+    }
+
+
+    //文本域变化事件， select   change事件
+    proselELe.onchange = function (){
+        //要获取用户选择的省
+        let currentPro = proselELe.value;
+        let currentCityList = data[currentPro];
+        // 清空市select中的数据
+        ctselELe.innerHTML = ''
+        ctselELe.innerHTML = `<option value="">请选择</option>`
+        // for循环所有的地区
+        for (let i = 0;i<currentCityList.length;i++){
+            let currentCity = currentCityList[i];
+            let optEle = document.createElement('option');
+            optEle.innerText = currentCity;
+            // 设置value值
+            optEle.value = currentCity;
+            // 将创建好的option标签加入到第一个select标签;
+            ctselELe.appendChild(optEle);
+        }
+    }
+</script>
+</body>
+</html>

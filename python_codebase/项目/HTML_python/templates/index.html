@@ -1,0 +1,391 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            background-image: linear-gradient(to top, rgba(197, 193, 193, 0.9) 0%, rgba(77, 77, 77, 0.90) 100%)
+        }
+
+        .z-div {
+            font-size: 30px;
+            color: #34495E;
+            font-family: "Source Sans Pro", "Helvetica Neue", "Arial,sans-serif";
+            text-align: center;
+            line-height: 500px;
+            background-size: 500%;
+            background-image: linear-gradient(125deg, #BFFEBE, #F6F8B5, #FCD0B3, #BFB6F8, #E8D8B3);
+            animation: bganimation 15s infinite;
+        }
+
+        @keyframes bganimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+<body>
+<div class="container">
+    <div>
+        <div class="jumbotron">
+            <div class="row">
+                <!--                <button type="button" onclick="start_sTime()" class="btn btn-default btn-xs ">start</button>-->
+                <!--                <button type="button" onclick="stop_stime()" class="btn btn-default btn-xs ">stop</button>-->
+
+            </div>
+            <div><h1 onclick="start_sTime()">杂诗</h1><span onclick="stop_stime()">【东晋】陶渊明</span></div>
+            <p class="lead text-center">
+                人生无根蒂，飘如陌上尘。
+
+                分散逐风转，此已非常身。
+
+                落地为兄弟，何必骨肉亲！</p>
+            <p class="lead text-center">
+                得欢当作乐，斗酒聚比邻。
+
+                盛年不重来，一日难再晨。
+
+                及时当勉励，岁月不待人。</p>
+            <p class="text-center" style="font-size: 16px">时间一去不复返，我们应当趁年富力强之时抓紧时机，珍惜光阴，努力学习，奋发上进。</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">celery概述</h3>
+                    <p>
+                        <a href="{% static 'celery/index.html' %}" class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">go-celery</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">django</h3>
+                    <p>
+                        <a href="{% static 'django/index.html' %}" class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">go-django</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">flask</h3>
+                    <p>
+                        <a href="{% static 'flask/index.html' %}" class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">go-flask</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">Git</h3>
+                    <p>
+                        <a href="{% static 'git/index.html' %}" class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">go-Git</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">Linux</h3>
+                    <p>
+                        <a href="{% static 'linux/index.html' %}" class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">go-Linux</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">nginx</h3>
+                    <p>
+                        <a href="{% static 'nginx/nginx课件.html' %}" class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">go-nginx</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">python环境安装</h3>
+                    <p>
+                        <a href="{% static 'python环境安装/_book/index.html' %}"
+                           class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">go-python环境安装</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">redis</h3>
+                    <p>
+                        <a href="{% static 'redis/index.html' %}" class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">go-redis</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">shell</h3>
+                    <p>
+                        <a href="{% static 'shell/运维和shell.html' %}" class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">go-shell</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">tornado</h3>
+                    <p>
+                        <a href="{% static 'tornado/index.html' %}" class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">go-tornado</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">电商</h3>
+                    <p>
+                        <a href="{% static '电商/index.html' %}" class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">go-电商</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">基础</h3>
+                    <p>
+                        <a href="{% static '基础/index.html' %}" class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">go-基础</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">爬虫</h3>
+                    <p>
+                        <a href="{% static '爬虫/爬虫/index.html' %}" class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">go-爬虫</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">前端</h3>
+                    <p>
+                        <a href="{% static '前端/index.html' %}" class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">go-前端</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">网络编程</h3>
+                    <p>
+                        <a href="{% static '网络编程/index.html' %}" class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">go-网络编程</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">微信</h3>
+                    <p>
+                        <a href="{% static '微信/index.html' %}" class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">go-微信</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3" style="display: none">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">爱情岛</h3>
+                    <p>
+                        <a href="https://vip.aqdx77.com/" class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">爱情岛</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">慕课网-教程</h3>
+                    <p>
+                        <a href="http://www.imooc.com/wiki/" class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">慕课网-教程</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">慕课网-python工程师</h3>
+                    <p>
+                        <a href="https://class.imooc.com/python2021#Anchor" class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">慕课网-python工程师</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">gitee</h3>
+                    <p>
+                        <a href="https://gitee.com/dashboard" class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">gitee</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3 class="text-center">github</h3>
+                    <p>
+                        <a href="https://github.com/" class="btn btn-default btn-lg btn-block active"
+                           role="button" target="_blank">github</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script type="text/javascript">
+    /* 鼠标特效 */
+    var a_idx = 0;
+    jQuery(document).ready(function ($) {
+        $("body").click(function (e) {
+            var a = ["❤前端从入门到放弃❤", "❤别学前端了❤", "❤前端太有意思了❤", "❤欢迎骚扰❤", "❤点我试试❤", "❤你贼帅❤", "❤么么哒❤", "❤哈哈啊❤", "❤web真难玩❤", "❤别点啦❤", "❤别再点啦❤", "❤再点一下试试❤", "❤点你咋滴❤", "❤好玩么❤", "❤溜了溜了❤"];
+            var $i = $("<span></span>").text(a[a_idx]);
+            a_idx = (a_idx + 1) % a.length;
+            var x = e.pageX,
+                y = e.pageY;
+            $i.css({
+                "z-index": 999999999999999999999999999999999999999999999999999999999999999999999,
+                "top": y - 20,
+                "left": x,
+                "position": "absolute",
+                "font-weight": "bold",
+                "color": "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+            });
+            $("body").append($i);
+            $i.animate({
+                    "top": y - 180,
+                    "opacity": 0
+                },
+                1500,
+                function () {
+                    $i.remove();
+                });
+        });
+    });
+</script>
+<script type="text/javascript">
+    // 随机数
+    function randomNum(minNum, maxNum) {
+        return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10)
+    }
+
+    // 随机一个渐变背景色
+    function randomBG() {
+        var c1 = randomNum(0, 255);
+        var c2 = randomNum(0, 255);
+
+        var divJumDoc = document.getElementsByClassName("jumbotron")[0];
+        var divThuDoc = document.getElementsByClassName("thumbnail");
+        document.body.style.background = 'linear-gradient(to left bottom, hsl(' + c1 + ', 100%, 85%) 0%,hsl(' + c2 +
+            ', 100%, 85%) 100%)';
+        divJumDoc.style.background = 'linear-gradient(to left bottom, hsl(' + c2 + ', 100%, 85%) 50%,hsl(' + c1 +
+            ', 100%, 85%) 100%)';
+        for (var i = 0; i < divThuDoc.length; i++) {
+            c1 = randomNum(0, 255);
+            c2 = randomNum(0, 255);
+            divThuDoc[i].style.background = 'linear-gradient(to left bottom, hsl(' + c2 + ', 100%, 85%) 50%,hsl(' + c1 +
+                ', 100%, 85%) 100%)';
+        }
+
+
+    }
+
+    var sTime = 0;
+
+
+    function start_sTime() {
+        randomBG();
+
+        if (sTime === 0) {
+            sTime = setInterval(() => {
+                randomBG();
+            }, 5000)
+        }
+
+    }
+
+    function stop_stime() {
+        if (sTime !== 0) {
+            clearInterval(sTime)
+            sTime = 0
+            console.log("stop")
+            window.location.reload()
+        }
+    }
+
+
+</script>
+</html>

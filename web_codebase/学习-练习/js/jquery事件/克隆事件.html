@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../jquery-3.6.0.min.js"></script>
+    <style>
+        #d1{
+            height: 100px;
+            width: 100px;
+            background-color: orange;
+            border: 1px solid blue;
+        }
+    </style>
+</head>
+<body>
+<button  id="d1"> asdfasdf</button>
+
+<script>
+    $('#d1').on('click',function () {
+        // console.log(this
+        // $(this).clone().insertAfter($('body'))
+        $(this).clone(true).insertAfter($('body'))
+    })
+</script>
+</body>
+</html>

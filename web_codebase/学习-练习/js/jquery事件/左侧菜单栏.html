@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../jquery-3.6.0.min.js"></script>
+    <style>
+        .left {
+            float: left;
+            background-color: #4e4e4e;
+            width: 20%;
+            height: 100%;
+            position: fixed;
+        }
+
+        .title {
+            font-size: 36px;
+            color: white;
+            text-align: center;
+        }
+
+        .items {
+            border: 1px solid darkslategray;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="left">
+    <div class="menu">
+        <div class="title">
+            <span>菜单一</span>
+            <div class="items">123</div>
+            <div class="items">321</div>
+            <div class="items">222</div>
+        </div>
+        <div class="title">
+            <span>菜单2</span>
+            <div class="items">123</div>
+            <div class="items">321</div>
+            <div class="items">222</div>
+        </div>
+        <div class="title">
+            <span>菜单3</span>
+            <div class="items">123</div>
+            <div class="items">321</div>
+            <div class="items">222</div>
+        </div>
+    </div>
+</div>
+'
+
+<script>
+    // 给所有的items加hide
+    $('.items').addClass('hide')
+    $('.title').click(function () {
+        // 给所有的items加hide
+        $('.items').addClass('hide')
+        //  然后被点击的移除
+        $(this).children().removeClass('hide')
+    })
+</script>
+</body>
+</html>

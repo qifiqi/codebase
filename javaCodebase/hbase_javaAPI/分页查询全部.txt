@@ -1,0 +1,91 @@
+    /**
+     * 查询全部数据并分页
+     */
+    private void InquireAllPage(){
+        Scan scan = new Scan();
+
+        //获取总行数
+        int total = 0;
+        ResultScanner resultScanner = null;
+        try {
+            resultScanner = table.getScanner(scan);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert resultScanner != null;
+        for (Result ignored : resultScanner) {
+            total++;
+        }
+        //创建分页
+        int totalPage;
+        if (total%30==0){
+            totalPage=total/30;
+        }else {
+            totalPage=total/30+1;
+        }
+        System.out.println("总共用"+totalPage+"页");
+
+
+        int page_num = 30;
+        PageFilter filter = new PageFilter(page_num);
+        scan.setFilter(filter);
+        boolean isFirst = true;
+        int startRow = 1;
+//        int row = 0;
+        int page = 0;
+        while (true){
+//            row = 0;
+
+            if(!isFirst){
+                // 如果不是第一页就设置开始行键
+                scan.setStartRow(String.valueOf(startRow).getBytes());
+            }
+            boolean aa = true;
+            do {
+                Result result = null;
+                try {
+                    result = table.get(new Get(Bytes.toBytes(String.valueOf(startRow))));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                assert result != null;
+                if (result.isEmpty()){
+                    startRow++;
+                }else {
+                    aa = false;
+                }
+            }while (aa);
+            ResultScanner results = null;
+            try {
+                results = table.getScanner(scan);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            assert results != null;
+            for (Result value : results) {
+                isFirst = false;
+                byte[] idByte = value.getValue(col[0].getBytes(), "id".getBytes());
+                byte[] nameByte = value.getValue(col[0].getBytes(), "name".getBytes());
+                byte[] ageByte = value.getValue(col[0].getBytes(), "sex".getBytes());
+                byte[] address = value.getValue(col[1].getBytes(), "source".getBytes());
+                byte[] score = value.getValue(col[1].getBytes(), "class_name".getBytes());
+
+                System.out.println(
+                        "id:" + new String(idByte) +
+                        "\tname:" + new String(nameByte) +
+                        "\tsex:" + new String(ageByte) +
+                        "\tsource:" + new String(address) +
+                        "\tclass_name:" + new String(score)
+                );
+                startRow++;
+//                row++;
+            }
+            page++;
+            System.out.println("===========================================================");
+            if (page>=totalPage){
+                results.close();
+                break;
+
+            }
+        }
+    }

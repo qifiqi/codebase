@@ -1,0 +1,267 @@
+    /**
+     * 条件查询
+     */
+    private void Conditional(){
+        ConditionalQuery cond = new ConditionalQuery();
+
+        boolean quit = true;
+        while (quit){
+            Hint(3);
+            String num = scanner.next();
+            switch (num){
+                case "1":
+                    cond.NameInquire(table,scanner);
+                    break;
+                case "2":
+                    cond.ClassNameInquire(table,scanner);
+                    break;
+                case "3":
+                    cond.SourceInquire(table,scanner);
+                    break;
+                case "4":
+                    quit = false;
+                    break;
+                default:
+                    System.out.println("你输入的不正确");
+                    break;
+            }
+
+
+        }
+    }
+
+
+package com.lz.java;
+
+import org.apache.hadoop.hbase.client.Result;
+import org.apache.hadoop.hbase.client.ResultScanner;
+import org.apache.hadoop.hbase.client.Scan;
+import org.apache.hadoop.hbase.client.Table;
+import org.apache.hadoop.hbase.filter.*;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class ConditionalQuery {
+    private final String[] col = {"col1","col2"};
+
+    public ConditionalQuery() {
+    }
+
+    /**
+     * 根据mane查询
+     */
+    public void NameInquire(Table table,Scanner scanner){
+        Scan scan = new Scan();
+        //获取名字
+        System.out.println("输入你要查询的名字");
+        String name = scanner.next();
+
+
+        SingleColumnValueFilter filter = new SingleColumnValueFilter(
+                "col1".getBytes(StandardCharsets.UTF_8),
+                "name".getBytes(StandardCharsets.UTF_8),
+                CompareFilter.CompareOp.EQUAL,
+                new RegexStringComparator(name)
+        );
+        filter.setFilterIfMissing(true);
+        scan.setFilter(filter);
+        ResultScanner results = null;
+        try {
+            results = table.getScanner(scan);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert results != null;
+        for (Result result : results){
+            byte[] idByte = result.getValue(col[0].getBytes(), "id".getBytes());
+            byte[] nameByte = result.getValue(col[0].getBytes(), "name".getBytes());
+            byte[] ageByte = result.getValue(col[0].getBytes(), "sex".getBytes());
+            byte[] address = result.getValue(col[1].getBytes(), "source".getBytes());
+            byte[] score = result.getValue(col[1].getBytes(), "class_name".getBytes());
+
+            System.out.println(
+                    "id:" + new String(idByte) +
+                            "\tname:" + new String(nameByte) +
+                            "\tsex:" + new String(ageByte) +
+                            "\tsource:" + new String(address) +
+                            "\tclass_name:" + new String(score)
+            );
+        }
+
+    }
+
+    /**
+     * 根据班级和名字
+     */
+    public void ClassNameInquire(Table table,Scanner scanner){
+        Scan scan = new Scan();
+        //获取名字
+        System.out.println("输入你要查询的名字");
+        String name = scanner.next();
+        System.out.println("输入你要查询的班级");
+        String class_name = scanner.next();
+
+
+        List<Filter> filters = new ArrayList<>();
+
+        SingleColumnValueFilter filter1 = new SingleColumnValueFilter(
+                "col1".getBytes(StandardCharsets.UTF_8),
+                "name".getBytes(StandardCharsets.UTF_8),
+                CompareFilter.CompareOp.EQUAL,
+                new RegexStringComparator(name)
+        );
+        filter1.setFilterIfMissing(true);
+        filters.add(filter1);
+
+        SingleColumnValueFilter filter2 = new SingleColumnValueFilter(
+                "col2".getBytes(StandardCharsets.UTF_8),
+                "class_name".getBytes(StandardCharsets.UTF_8),
+                CompareFilter.CompareOp.EQUAL,
+                class_name.getBytes(StandardCharsets.UTF_8)
+        );
+        filter2.setFilterIfMissing(true);
+        filters.add(filter2);
+        FilterList filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL,filters);
+
+        scan.setFilter(filterList);
+        ResultScanner results = null;
+        try {
+            results = table.getScanner(scan);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert results != null;
+        for (Result result : results){
+            byte[] idByte = result.getValue(col[0].getBytes(), "id".getBytes());
+            byte[] nameByte = result.getValue(col[0].getBytes(), "name".getBytes());
+            byte[] ageByte = result.getValue(col[0].getBytes(), "sex".getBytes());
+            byte[] address = result.getValue(col[1].getBytes(), "source".getBytes());
+            byte[] score = result.getValue(col[1].getBytes(), "class_name".getBytes());
+
+            System.out.println(
+                    "id:" + new String(idByte) +
+                            "\tname:" + new String(nameByte) +
+                            "\tsex:" + new String(ageByte) +
+                            "\tsource:" + new String(address) +
+                            "\tclass_name:" + new String(score)
+            );
+        }
+
+    }
+
+    /**
+     * 查询及格
+     */
+    public void SourceInquire(Table table,Scanner scanner){
+        Scan scan = new Scan();
+        System.out.println("是否要指定查看班级，若是不需要直接输入1就好");
+        String class_name_sc = scanner.next();
+        if (!class_name_sc.equals("1")){
+            List<Filter> filters = new ArrayList<>();
+            SingleColumnValueFilter filter1 = new SingleColumnValueFilter(
+                    "col2".getBytes(StandardCharsets.UTF_8),
+                    "source".getBytes(StandardCharsets.UTF_8),
+                    CompareFilter.CompareOp.GREATER_OR_EQUAL,
+                    "60".getBytes(StandardCharsets.UTF_8)
+            );
+            filter1.setFilterIfMissing(true);
+            filters.add(filter1);
+
+            SingleColumnValueFilter filter2 = new SingleColumnValueFilter(
+                    "col2".getBytes(StandardCharsets.UTF_8),
+                    "class_name".getBytes(StandardCharsets.UTF_8),
+                    CompareFilter.CompareOp.EQUAL,
+                    class_name_sc.getBytes(StandardCharsets.UTF_8)
+            );
+            filter2.setFilterIfMissing(true);
+            filters.add(filter2);
+            FilterList filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL,filters);
+
+            scan.setFilter(filterList);
+            ResultScanner results = null;
+            try {
+                results = table.getScanner(scan);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            assert results != null;
+            int number = 0;
+            for (Result result : results){
+                byte[] idByte = result.getValue(col[0].getBytes(), "id".getBytes());
+                byte[] nameByte = result.getValue(col[0].getBytes(), "name".getBytes());
+                byte[] ageByte = result.getValue(col[0].getBytes(), "sex".getBytes());
+                byte[] address = result.getValue(col[1].getBytes(), "source".getBytes());
+                byte[] score = result.getValue(col[1].getBytes(), "class_name".getBytes());
+
+                System.out.println(
+                        "id:" + new String(idByte) +
+                                "\tname:" + new String(nameByte) +
+                                "\tsex:" + new String(ageByte) +
+                                "\tsource:" + new String(address) +
+                                "\tclass_name:" + new String(score)
+                );
+                number++;
+            }
+            System.err.println(class_name_sc+"一共有"+number+"个及格人数");
+
+        }else {
+            String[] class_list = {"一班","二班","三班","四班"};
+            for (String class_name :class_list){
+                List<Filter> filters = new ArrayList<>();
+                SingleColumnValueFilter filter1 = new SingleColumnValueFilter(
+                        "col2".getBytes(StandardCharsets.UTF_8),
+                        "source".getBytes(StandardCharsets.UTF_8),
+                        CompareFilter.CompareOp.GREATER_OR_EQUAL,
+                        "60".getBytes(StandardCharsets.UTF_8)
+                );
+                filter1.setFilterIfMissing(true);
+                filters.add(filter1);
+
+                SingleColumnValueFilter filter2 = new SingleColumnValueFilter(
+                        "col2".getBytes(StandardCharsets.UTF_8),
+                        "class_name".getBytes(StandardCharsets.UTF_8),
+                        CompareFilter.CompareOp.EQUAL,
+                        class_name.getBytes(StandardCharsets.UTF_8)
+                );
+                filter2.setFilterIfMissing(true);
+                filters.add(filter2);
+                FilterList filterList = new FilterList(FilterList.Operator.MUST_PASS_ALL,filters);
+
+                scan.setFilter(filterList);
+                ResultScanner results = null;
+                try {
+                    results = table.getScanner(scan);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                assert results != null;
+                int number = 0;
+                for (Result result : results){
+                    byte[] idByte = result.getValue(col[0].getBytes(), "id".getBytes());
+                    byte[] nameByte = result.getValue(col[0].getBytes(), "name".getBytes());
+                    byte[] ageByte = result.getValue(col[0].getBytes(), "sex".getBytes());
+                    byte[] address = result.getValue(col[1].getBytes(), "source".getBytes());
+                    byte[] score = result.getValue(col[1].getBytes(), "class_name".getBytes());
+
+                    System.out.println(
+                            "id:" + new String(idByte) +
+                                    "\tname:" + new String(nameByte) +
+                                    "\tsex:" + new String(ageByte) +
+                                    "\tsource:" + new String(address) +
+                                    "\tclass_name:" + new String(score)
+                    );
+                    number++;
+                }
+                System.out.println(class_name+"一共有"+number+"个及格人数");
+
+            }
+        }
+
+
+    }
+
+}

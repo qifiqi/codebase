@@ -1,0 +1,303 @@
+// 初始化
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+// 设置滚动条隐藏
+::-webkit-scrollbar {
+    width: 0px;
+}
+li {
+    list-style: none;
+}
+// 声明字体
+@font-face {
+    font-family: electronicFont;
+    src: url(../font/DS-DIGIT.TTF);
+}
+body {
+    // body 设置背景图 ，缩放为 100% ， 行高1.15
+    background: url(../images/bg.jpg) no-repeat top center;
+    line-height: 1.15;
+
+}
+header {
+    
+    position: relative;
+    // 高度为100px
+    height: 1.25rem;
+    // 背景图，在容器内显示
+    background: url(../images/head_bg.png) no-repeat;
+    // 缩放比例为 100%
+    background-size: 100% 100%;
+    // h1 标题部分 白色 38像素 居中显示 行高为 80像素
+    h1 {
+        font-size: .475rem;
+        color: #fff;
+        text-align: center;
+        line-height: 1rem;
+    }
+    // 时间模块 showTime 定位右侧 right 为 30px 行高为 75px 文字颜色为：rgba(255, 255, 255, 0.7) 而文字大小为 20像素
+    .showTime {
+        position: absolute;
+        right: .375rem;
+        line-height: .9375rem;
+        font-size: .25rem;
+        color: rgba(255, 255, 255, 0.7);
+        top: 0;
+    }
+}
+.mainbox {
+    display: flex;
+    min-width: 1024px;
+    max-width: 1920px;
+    margin: 0 auto;
+    // 需要一个上左右的10px 的内边距
+    padding: .125rem .125rem 0;
+    // column 列容器，分三列，占比 3：5：3
+    .column {
+        flex: 3;
+    }
+    .column:nth-child(2){
+        flex: 5;
+        margin: .125rem .1875rem 0;
+        overflow: hidden;
+    }
+    
+
+}
+.panel {
+    position: relative;
+    // 高度为 310px
+    height: 3.875rem;
+    // padding为 上为 0 左右 15px 下为 40px
+    padding: 0 .1875rem .5rem;
+    // 1像素的 1px solid rgba(25, 186, 139, 0.17) 边框
+    border: 1px solid rgba(25, 186, 139, 0.17);
+    // 下外边距是 15px
+    margin-bottom: .1875rem;
+    // 有line.jpg 背景图片
+    background: url(../images/line\(1\).png) 
+    rgba(255, 255, 255, 0.03);
+    // 利用panel 盒子 before 和after 制作上面两个角 大小为 10px 线条为 2px solid #02a6b5
+    &::before {
+        // 设置关系
+        position: absolute;
+        // 位置
+        top: 0;
+        left: 0;
+        // 大小
+        width: 10px;
+        height: 10px;
+        // 线条粗细
+        border-left: 2px solid #02a6b5;
+        border-top: 2px solid #02a6b5;
+        // 显示 要记得设置不然不显示
+        content: "";
+    }
+    &::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 10px;
+        height: 10px;
+        border-right: 2px solid #02a6b5;
+        border-top: 2px solid #02a6b5;
+        content: "";
+    }
+    .panel-footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        &::before {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 10px;
+            height: 10px;
+            border-left: 2px solid #02a6b5;
+            border-bottom: 2px solid #02a6b5;
+            content: "";
+        }
+        &::after {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 10px;
+            height: 10px;
+            border-right: 2px solid #02a6b5;
+            border-bottom: 2px solid #02a6b5;
+            content: "";
+        }
+    }
+    h2 {
+        height: .6rem;
+        color: #fff;
+        line-height: .6rem;
+        text-align: center;
+        font-size: .25rem;
+        // 设置粗细
+        font-weight: 400;
+        a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 .125rem;
+
+        }
+    }
+    .chart {
+        height: 3rem;
+
+    }
+}
+.no{
+    background:  rgba(101, 132, 226, 0.1);
+    padding: .1875rem;
+    .no-hd {
+        position: relative;
+        border: 1px solid rgba(25, 186, 139, 0.17) ;
+        &::before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 30px;
+            height: 10px;
+            border-top: 2px solid #02a6b5;
+            border-left: 2px solid #02a6b5;
+            content: "";
+        }
+        &::after {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 30px;
+            height: 10px;
+            border-bottom: 2px solid #02a6b5;
+            border-right: 2px solid #02a6b5;
+            content: "";
+        }
+        ul {
+            display: flex;
+            li {
+                position: relative;
+                flex: 1;
+                line-height: 1rem;
+                font-size: .875rem;
+                color:  #ffeb7b;
+                text-align: center;
+                font-family: "electronicFont";
+            } 
+            // 设置中间的横线，这里是选中第一个li
+            li:nth-child(1)::after {
+                content: "";
+                position: absolute;
+                top: 25%;
+                right: 0;
+                height: 50%;
+                width: 1px;
+                background: rgba(255, 255, 255, 0.2);
+            }
+        }
+    }
+    .no-bd {
+        ul {
+            display: flex;
+            li {
+                flex:1;
+                text-align: center;
+                color: rgba(255, 255, 255, 0.7);
+                font-size: .225rem;
+                height: .5rem;
+                line-height: .5rem;
+                padding-top: .125rem;
+            }
+        }
+    }
+}
+.map {
+    position: relative;
+    height: 10.125rem;
+    .map1 {
+        width: 6.475rem;
+        height: 6.475rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        background: url(../images/map.png);
+        // 设置包容显示,就是图像会自动缩小放大
+        background-size: contain;
+        opacity: 0.3;
+    }
+    .map2 {
+        width: 8.0375rem;
+        height: 8.0375rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        background: url(../images/lbx.png);
+        // 设置包容显示,就是图像会自动缩小放大
+        background-size: contain;
+        // 调用旋转方法
+        animation: rotate1 15s linear infinite;
+        // 设置透明度
+        opacity: 0.4;
+    }
+    .map3 {
+        width: 7.075rem;
+        height: 7.075rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        background: url(../images/jt.png);
+        // 设置包容显示,就是图像会自动缩小放大
+        background-size: contain;
+        animation: rotate2 10s linear infinite ;
+        opacity: 0.6;
+
+    }
+    .chart {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 10.125rem;
+    }
+    // 设置map2顺时针动画旋转
+    @keyframes rotate1 {
+        form{
+            transform: translate(-50%,-50%) rotate(0deg);
+        }
+        to{
+            transform: translate(-50%,-50%) rotate(360deg);
+        }
+        
+    }
+    // 设置map3逆时针动画旋转
+    @keyframes rotate2 {
+        form{
+            transform: translate(-50%,-50%) rotate(0deg);
+
+        }
+        to{
+            transform: translate(-50%,-50%) rotate(-360deg);
+
+        }
+        
+    }
+}
+/* 约束屏幕尺寸 */
+@media screen and (max-width: 1024px) {
+    html {
+      font-size: 42px !important;
+    }
+  }
+  @media screen and (min-width: 1920px) {
+    html {
+      font-size: 80px !important;
+    }
+  }

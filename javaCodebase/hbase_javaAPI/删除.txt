@@ -1,0 +1,13 @@
+    /**
+     * 按RowKey删除
+     */
+    private void DeleteStudent(){
+        Hint(2);
+        String row = scanner.next();
+        Delete del = new Delete(row.getBytes());
+        try {
+            table.delete(del);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }

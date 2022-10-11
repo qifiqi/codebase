@@ -1,0 +1,32 @@
+    /**
+     * 修改方法,根据RowKey
+     */
+    private void  UpDataStudent(){
+        Hint(2);
+        String row = scanner.next();
+        Result result = null;
+        try {
+            result = table.get(new Get(Bytes.toBytes(String.valueOf(row))));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert result != null;
+        if (result.isEmpty()){
+            Student student = CreateStudent();
+            Put put = new Put(Bytes.toBytes(row));
+            put.addColumn(Bytes.toBytes(col[0]),Bytes.toBytes("id"),Bytes.toBytes(row));
+            put.addColumn(Bytes.toBytes(col[0]),Bytes.toBytes("name"),Bytes.toBytes(student.getStu_name()));
+            put.addColumn(Bytes.toBytes(col[0]),Bytes.toBytes("sex"),Bytes.toBytes(student.getSex()));
+            put.addColumn(Bytes.toBytes(col[1]),Bytes.toBytes("source"),Bytes.toBytes(student.getScource()));
+            put.addColumn(Bytes.toBytes(col[1]),Bytes.toBytes("class_name"),Bytes.toBytes(student.getClass_name()));
+            try {
+                table.put(put);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+            System.out.println("你输入的id不存在");
+        }
+
+
+    }

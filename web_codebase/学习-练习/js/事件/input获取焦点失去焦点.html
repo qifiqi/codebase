@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>input获取焦点失去焦点</title>
+</head>
+<body>
+    <div>
+        <input type="text" id="d1" value="约吗?">
+    </div>
+    <script>
+        let inELe = document.getElementById('d1')
+        //获取焦点事件
+        inELe.onfocus = function (){
+            // 将input中的值去除
+            inELe.value = ''
+            // 点value就是获取值   等号赋值就是设置
+        }
+        //失去焦点事件
+        inELe.onblur = function () {
+            // 给input标签重新赋值
+            inELe.value = '丨！！！！'
+        }
+    </script>
+</body>
+</html>

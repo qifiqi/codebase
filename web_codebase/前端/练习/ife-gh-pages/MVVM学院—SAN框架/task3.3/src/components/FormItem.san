@@ -1,0 +1,188 @@
+<template>
+    <div class="ui-form-item {{ position }}">
+        <label for="{{ labelFor }}" class="item-label {{ require ? 'require':''}}">
+            <slot name="label">{{ label }}</slot>
+        </label>
+        <div class="item-content">
+            <div class="item-input">
+                <slot></slot>
+            </div>
+            <div class="item-message">{{ Message }}</div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import AsyncValidator from 'async-validator';
+    export default {
+        initData: function () {
+            let o = new Object();
+            o.labelWidth = this.parentComponent.data.get("labelWidth");
+            o.rules = this.parentComponent.data.get("rules");
+            o.labelPosition = this.parentComponent.data.get("labelPosition");
+            return {
+                require: false,
+                label: "",
+                labelWidth: "100px",
+                prop: "",
+                rules: [],
+                error: "",
+                helpText: "",
+                labelPosition: "right",
+                form: o,
+                isError: false,
+                messagePrefix: "☹",
+                uiInput: {}
+            }
+        },
+        // 创建完成派发创建消息和组件给父组件
+        created: function() {
+            this.dispatch('UI:form-item-add', this);
+        },
+        // 删除时派发删除消息
+        disposed: function() {
+            this.dispatch('UI:form-item-remove', this);
+        },
+        //过滤器
+        filters: {
+
+        },
+        //计算属性
+        computed: {
+            labelFor: function() {
+                return this.data.get("prop");
+            },
+            form: function(){
+                return this.data.get("form");
+            },
+            Message: function() {
+                if(this.data.get("isError")) {
+                    return this.data.get("messagePrefix") + this.data.get("error");
+                }else {
+                    return "";
+                }
+                    
+            },
+            position: function() {
+                let Position = this.data.get("labelPosition");
+                
+                // 检验有效性
+                if( Position === "left"
+                  ||Position === "right"
+                  ||Position === "top") {
+                      return `item-label-${Position}`;
+                  }else {
+                    //   console.log('else');
+                      
+                      return "item-label-left"
+                  }
+            }
+        },
+        setError: function(bool) {
+            // 存在input框
+            this.data.set("isError", bool);
+            if(this.data.get("uiInput").data) {
+                this.data.get("uiInput").data.set("isError", bool);
+            }
+        },
+        // 验证函数
+        validate: function(ERRORS = []) {
+            const descriptor = {};
+            let prop = this.data.get("prop");
+            let rules = this.data.get("rules");
+            if((!rules || rules.length === 0) && !this.data.get("require")) {
+                return true;
+            }
+            if(this.data.get("require")) {
+
+            }
+            let value = this.parentComponent.data.get("formModel")[prop];
+            descriptor[prop] = rules;
+            // 如果没有验证规则，且必选的选项，添加必选验证
+            if(rules.length === 0 && this.data.get("require")) {
+                descriptor[prop].push({
+                    required: true,
+                    message: '必选',
+                    type: 'string'
+                })
+            }
+            const validator = new AsyncValidator(descriptor);
+            const model = {};
+            model[prop] = value;
+            validator.validate(model, { firstFields: true }, (errors, invalidFields) => {
+                // 设置错误信息
+                if(errors) {
+                    this.setError(true);
+                    ERRORS.push(errors[0].field);
+                    if(errors[0].message && errors[0].message.length > 0) {
+                        this.data.set("error",errors[0].message);
+                    }
+                    return false;
+                }
+                // 验证通过
+                this.setError(false);
+                return true;
+            });
+            
+        },
+        // 接收消息
+        messages: {
+            "UI:input-add": function(value) {
+                this.data.set("uiInput",value.target);
+                let input = value.target;
+                if(input.data) {
+                    input.data.set("placeholder", this.data.get("helpText"));
+                }
+            },
+            "UI:input-blur": function() {
+                this.validate();
+            }
+        },
+        // 重置error状态
+        resetFields: function () {
+            this.setError(false);
+        },
+        trimWhitespace: "all",
+    }
+</script>
+
+<style>
+    .ui-form-item {
+        display: flex;
+    }
+    .item-label-left,
+    .item-label-right {
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .item-label-left .item-label,
+    .item-label-right .item-label {
+        padding-top: 10px;
+    }
+    .item-label-right .item-label {
+        text-align: right;
+    }
+    .item-label {
+        line-height: 40px;
+        width: 100px;
+    }
+    .require::before {
+        margin-left: -10px;
+        content: "*";
+        color: #ff7275;
+    }
+    .item-input {
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+    .error {
+        border: 1px solid #ff7275;
+    }
+    .item-message {
+        padding-left: 10px;
+        font-size: 14px;
+        color: #ff7275;
+        line-height: 25px;
+        height: 25px;
+    }
+</style>

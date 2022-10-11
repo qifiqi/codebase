@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./static/marked-master/marked.min.js"></script>
+    <script src="static\editor.md-master\examples\js\jquery.min.js"></script>
+
+</head>
+<body>
+    <div id="mk"></div>
+    <script type="text/javascript">
+        $(function(){
+            $.ajax({
+                type:"get",
+                url:"./static/mk_file/1爬虫工作原理.md",
+                dataType:"html",
+                success:function(res){
+                    document.getElementById('mk').innerHTML = marked.parse(res);
+    
+                }
+            })
+        })  
+    </script>
+</body>
+
+</html>

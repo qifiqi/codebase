@@ -1,0 +1,147 @@
+        header = {
+            'Host': 'www.cnpcbidding.com',
+            'Content-Length': '121',
+            'Content-Type': 'application/json;charsetset=UTF-8',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                          'Chrome/102.0.0.0 Safari/537.36',
+            'Referer': 'https://www.cnpcbidding.com/html/1/index.html',
+
+        }
+
+{"pid":"198","pageSize":15,"categoryId":"201","pageNo":1} 32：pageNo  ---》要传过去json类型
+
+{
+    "categoryId": 201,
+    "articleType": null,
+    "title": "",
+    "projectType": "",
+    "pageSize": 15,
+    "pageNo": 1,
+    "total": 496,
+    "list": [
+        {
+            "id": "76801701373",
+            "projectcode": null,
+            "projectname": "渤海装备（天津）新世纪机械制造有限公司实心抽油杆原材料供应商集中资格招标",
+            "noticename": null,
+            "bulletincontent": null,
+            "dateTime": "2022-06-10"
+        },
+        {
+            "id": "76802387350",
+            "projectcode": null,
+            "projectname": "西南油气田分公司次高压及以上城镇燃气管道 工程施工集中集约招标（资格预审）-重新招标",
+            "noticename": null,
+            "bulletincontent": null,
+            "dateTime": "2022-06-10"
+        },
+        {
+            "id": "76747463580",
+            "projectcode": null,
+            "projectname": "塔里木油田特种车辆（液氮泵车）服务集中资格招标（二次）",
+            "noticename": null,
+            "bulletincontent": null,
+            "dateTime": "2022-06-07"
+        },
+        {
+            "id": "76736610419",
+            "projectcode": null,
+            "projectname": "西南管道公司2022年成品油管道减阻剂框架采购招标",
+            "noticename": null,
+            "bulletincontent": null,
+            "dateTime": "2022-06-07"
+        },
+        {
+            "id": "76726517248",
+            "projectcode": null,
+            "projectname": "塔里木油田勘探事业部2022年度探临路、井场、生活区修建及零星维修工程（沙雅县、新和县境内）",
+            "noticename": null,
+            "bulletincontent": null,
+            "dateTime": "2022-06-06"
+        },
+        {
+            "id": "76703552582",
+            "projectcode": null,
+            "projectname": "塔里木油田进口完井工具作业集中招标招标方案(变更)",
+            "noticename": null,
+            "bulletincontent": null,
+            "dateTime": "2022-06-02"
+        },
+        {
+            "id": "76623969041",
+            "projectcode": null,
+            "projectname": "塔里木油田特种车辆（液氮泵车）服务集中资格招标",
+            "noticename": null,
+            "bulletincontent": null,
+            "dateTime": "2022-05-27"
+        },
+        {
+            "id": "76623969040",
+            "projectcode": null,
+            "projectname": "塔里木油田2022-2023年山前井及风险探井下套管技术服务集中资格招标",
+            "noticename": null,
+            "bulletincontent": null,
+            "dateTime": "2022-05-27"
+        },
+        {
+            "id": "76623967111",
+            "projectcode": null,
+            "projectname": "塔里木油田国产井下工具作业集中招标招标方案(变更)",
+            "noticename": null,
+            "bulletincontent": null,
+            "dateTime": "2022-05-27"
+        },
+        {
+            "id": "76623967110",
+            "projectcode": null,
+            "projectname": "塔里木油田2022年下油管作业集中招标方案(变更)",
+            "noticename": null,
+            "bulletincontent": null,
+            "dateTime": "2022-05-27"
+        },
+        {
+            "id": "76620797546",
+            "projectcode": null,
+            "projectname": "塔里木油田2022年度特种车辆（水泥车）服务集中资格招标",
+            "noticename": null,
+            "bulletincontent": null,
+            "dateTime": "2022-05-27"
+        },
+        {
+            "id": "76532859524",
+            "projectcode": null,
+            "projectname": "中国石油工程建设公司北京设计分公司-电力新能源相关技术服务集中资格招标(变更)",
+            "noticename": null,
+            "bulletincontent": null,
+            "dateTime": "2022-05-21"
+        },
+        {
+            "id": "76484018262",
+            "projectcode": null,
+            "projectname": "塔里木油田油气田产能建设事业部塔西南区块探临路井场生活区修建及零星维修项目集中资格招标(变更)(变更)(变更)",
+            "noticename": null,
+            "bulletincontent": null,
+            "dateTime": "2022-05-16"
+        },
+        {
+            "id": "76484018263",
+            "projectcode": null,
+            "projectname": "塔里木油田油气田产能建设事业部塔中区块探临路井场生活区修建及零星维修项目集中资格招标(变更)(变更)",
+            "noticename": null,
+            "bulletincontent": null,
+            "dateTime": "2022-05-16"
+        },
+        {
+            "id": "76484017328",
+            "projectcode": null,
+            "projectname": "塔里木油田油气田产能建设事业部哈拉哈塘、英买区块探临路井场生活区修建及零星维修项目集中资格招标(变更)(变更)",
+            "noticename": null,
+            "bulletincontent": null,
+            "dateTime": "2022-05-16"
+        }
+    ],
+    "endIndex": 15,
+    "limit": 15,
+    "totalPage": 34,
+    "startIndex": 0
+}

@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>steam壁纸引擎创意工坊</title>\
+    <!-- <link rel="stylesheet" href="./css/index.css"> -->
+    <link rel="stylesheet" href="{% static '/css/index.css' %}">
+    <script src="{% static '/js/index.js' %}"></script>
+    <script src="{% static '/js/jquery-3.6.0.js' %}"></script>
+
+</head>
+<body>
+<script type="text/javascript">
+    function subscription(appid,publishedfileid) {
+        console.log(appid,publishedfileid)
+        $.get ({
+            url:"{% url 'subscription' %}?appid="+appid+'&publishedfileid='+publishedfileid,
+            data:'',
+            type:'json',
+            success:function (data) {
+                window.alert(data)
+            }
+        })
+    }
+</script>
+<div id="main">
+    <ul>
+        {% for member in memberlist %}
+            <li>
+                <div class="steam_project">
+                    <img src="{{ member.img_path }}">
+                    <a href="{{ member.href }}"></a>
+                </div>
+                <div class="text">
+                    <p class="title">{{ member.title }}</p>
+                    <div class="au">
+                        <p class="author">{{ member.author }}</p>
+                        <p id="subscription" >
+                            <a href="javascript:void(0);" onclick="subscription({{ member.appid }},{{ member.publishedfileid }})">订阅</a>
+                        </p>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="page">
+    <ul>
+        <!-- &laquo;上一页的意思 -->
+        <li class="prev"><a href="{% url 'index2' pindex|add:-1 %}">&laquo;</a></li>
+        {% for p in plist %}
+            <li {% if p == pindex %} class="pc active" {% endif %} class="pc"><a href="{% url 'index2' p %}">{{ p }}</a>
+            </li>
+        {% endfor %}
+        <li><a href="{% url 'index2' pindex|add:1 %}">&raquo;</a></li>
+        <!-- &raquo;下一页的意思 -->
+    </ul>
+</div>
+
+</body>
+</html>
+

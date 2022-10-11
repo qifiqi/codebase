@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../jquery-3.6.0.min.js"></script>
+    <style>
+        .cover{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(73, 70, 70, 0.4);
+            z-index: 99;
+        }
+        .modal{
+            position: fixed;
+            height: 400px;
+            width: 600px;
+            background-color: white;
+            top: 50%;
+            left: 50%;
+            margin-left: -300px;
+            margin-top: -200px;
+            z-index: 100;
+
+        }
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div>最下面</div>
+<button id="d1">出来</button>
+<div class="cover hide"></div>
+<div class="modal hide" >
+    <p>username:<input type="text"></p>
+    <p>password:<input type="text"></p>
+    <input type="button" value="确认">
+    <input type="button" value="取消" id="quit">
+</div>
+<script>
+    let $coverEle = $('.cover')
+    let $modalEle = $('.modal')
+
+    $('#d1').click(function () {
+        // 将两个div的hide移除
+        $coverEle.removeClass('hide')
+        $modalEle.removeClass('hide')
+    })
+    $('#quit').on('click',function () {
+        $modalEle.addClass('hide')
+        $coverEle.addClass('hide')
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="Java_2_csgl_GoodsManagement"/>
+	<classpathentry kind="src" path="java_1_tsg"/>
+	<classpathentry kind="src" path="java_6_wul"/>
+	<classpathentry kind="src" path="Vaccination"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/专业/笔记/java实训/工具包/mysql-connector-java-5.1.47.jar"/>
+	<classpathentry kind="lib" path="Test/src/mysql-connector-java-5.1.47.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

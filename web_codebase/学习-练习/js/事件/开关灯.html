@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>开关灯</title>
+    <style>
+        .c1{
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+        }
+        .bg_red{
+            background-color: red;
+        }
+        .bg_yellow{
+            background-color: yellow;
+        }
+        #d1:hover{
+            color: #4e4e4e;
+        }
+    </style>
+</head>
+<body>
+<div id="d1" class="c1 bg_red bg_yellow"></div>
+<button id="d2">变色</button>
+<script>
+    let btnEle = document.getElementById('d2')
+    let divEle = document.getElementById('d1')
+    btnEle.onclick = function (){
+        //  动态的修改div标签
+        divEle.classList.toggle('bg_yellow')
+    }
+</script>
+</body>
+</html>

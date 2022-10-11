@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实时展示当前时间</title>
+    <style>
+        #d1{
+            display: block;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+<input type="text" id="d1">
+<button id="start_time">开始</button>
+<button id="stop_time">结束</button>
+
+<script>
+    let inputEle = document.getElementById('d1');
+    let startButEle = document.getElementById('start_time')
+    let stopButEle = document.getElementById('stop_time')
+    let setReval = null;
+    // 1.访问页面之后，将访问的时间展示到input框中
+    // 2.动态的展示当前时间
+    // 3.页面上加两个按钮，开始结束
+    function showTime() {
+        let currentTime = new Date();
+        inputEle.value = currentTime.toLocaleString();
+    }
+    startButEle.onclick = function () {
+        // 限制定时器只能开一个
+        if (! setReval){
+            // 每次进来都会开一个事件循环
+            setReval = setInterval(showTime,1000);
+        }else {
+            alert('不要点啦！！')
+        }
+    }
+    stopButEle.onclick = function (){
+        if (setReval){
+            clearInterval(setReval)
+            inputEle.value = ''
+            // 重置为空
+            setReval = null
+        }
+    }
+
+</script>
+
+
+
+</body>
+</html>

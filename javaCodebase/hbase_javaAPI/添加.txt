@@ -1,0 +1,44 @@
+private void AddStudent(Student student){
+        //读取rowkey
+        File file = new File("src/main/java/com/lz/java/resource/rowkey.txt");
+        Scanner sc = null;
+        try {
+            sc = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        assert sc != null;
+        sc.useDelimiter("\\Z");
+        int sid = sc.nextInt();
+
+        Put put = new Put(Bytes.toBytes(sid));
+        put.addColumn(Bytes.toBytes(col[0]),Bytes.toBytes("id"),Bytes.toBytes(String.valueOf(sid)));
+        put.addColumn(Bytes.toBytes(col[0]),Bytes.toBytes("name"),Bytes.toBytes(student.getStu_name()));
+        put.addColumn(Bytes.toBytes(col[0]),Bytes.toBytes("sex"),Bytes.toBytes(student.getSex()));
+        put.addColumn(Bytes.toBytes(col[1]),Bytes.toBytes("source"),Bytes.toBytes(student.getScource()));
+        put.addColumn(Bytes.toBytes(col[1]),Bytes.toBytes("class_name"),Bytes.toBytes(student.getClass_name()));
+        try {
+            table.put(put);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        sid++;
+        //写入rowkey
+        try {
+            file.createNewFile(); // 创建新文件,有同名的文件的话直接覆盖        }
+            FileOutputStream fos = new FileOutputStream(file, false);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            BufferedWriter bw = new BufferedWriter(osw);
+            bw.write(String.valueOf(sid));
+            bw.newLine();
+            bw.flush();
+            bw.close();
+            osw.close();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }

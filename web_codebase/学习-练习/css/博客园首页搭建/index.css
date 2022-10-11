@@ -1,0 +1,108 @@
+/*这个是博客园练习首页样式*/
+
+/*通用样式*/
+body{
+    margin: 0;
+    background-color: #dad6d6;
+}
+a{
+    text-decoration: none;
+}
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+/*左侧样式*/
+.blog-leftBox{
+    float: left;
+    width: 20%;
+    height: 100%;
+    position: fixed;
+    background-color:#4e4e4e;
+
+}
+.blog-avatar{
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    border: 5px solid wheat;
+    margin: 20px auto ;
+    overflow: hidden;
+}
+.blog-avatar img{
+    width: 100%;
+}
+
+.blog-title, .blog-info{
+    color: #a9a8a4;
+    font-size: 18px;
+    text-align: center;
+}
+
+.blog-link, .blog-language{
+    font-size: 24px;
+
+}
+
+.blog-info{
+    font-size: 12px;
+}
+
+.blog-link a, .blog-language a{
+    color: darkgray;
+}
+
+.blog-link a:hover, .blog-language a:hover{
+    color: white;
+}
+
+.blog-link ul, .blog-language ul{
+    text-align: center;
+    margin-top: 100px;
+}
+
+
+
+/*右侧样式*/
+.blog-rightBox{
+    float: right;
+    width: 80%;
+    height: 1000px;
+}
+
+.article{
+    background-color: white;
+    margin:20px 40px 10px 10px;
+    /*设置阴影*/
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+}
+.article-title{
+    border-left: 5px solid red;
+    text-indent: 10px;
+
+}
+
+.article-title .title{
+    font-size: 24px;
+}
+
+.article-title .date{
+    float: right;
+    margin: 20px 20px;
+    font-weight: bolder;
+}
+.article-body{
+    font-size: 18px;
+    text-indent: 36px;
+    border-bottom: 2px solid black;
+}
+.article-bottom{
+    font-size: 24px;
+    padding-left: 10px ;
+    padding-bottom: 5px;
+}
+.article-bottom span{
+    padding-left:10px ;
+}
+

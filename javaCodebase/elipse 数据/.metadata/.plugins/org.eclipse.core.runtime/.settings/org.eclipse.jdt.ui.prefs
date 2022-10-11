@@ -1,0 +1,40 @@
+content_assist_add_import=true
+content_assist_autoactivation=true
+content_assist_autoactivation_delay=0
+content_assist_autoactivation_triggers_java=qwertyuiopasdfghjklzxcvbnm.
+content_assist_autoactivation_triggers_javadoc=@\#
+content_assist_autoinsert=true
+content_assist_case_sensitivity=false
+content_assist_category_order=org.eclipse.jdt.ui.templateProposalCategory\:0\u0000org.eclipse.jdt.ui.swtProposalCategory\:1\u0000org.eclipse.jdt.ui.javaNoTypeProposalCategory\:65537\u0000org.eclipse.jdt.ui.javaChainProposalCategory\:3\u0000org.eclipse.jdt.ui.javaTypeProposalCategory\:65539\u0000org.eclipse.jdt.ui.textProposalCategory\:65540\u0000org.eclipse.jdt.ui.javaAllProposalCategory\:6\u0000org.eclipse.jdt.ui.javaPostfixProposalCategory\:65542\u0000org.eclipse.pde.api.tools.ui.apitools_proposal_category\:8\u0000
+content_assist_disable_completion_trigger_chars=false
+content_assist_disabled_computers=org.eclipse.jdt.ui.javaNoTypeProposalCategory\u0000org.eclipse.jdt.ui.javaTypeProposalCategory\u0000org.eclipse.jdt.ui.textProposalCategory\u0000
+content_assist_fill_method_arguments=true
+content_assist_guess_method_arguments=false
+content_assist_insert_completion=true
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="java.util.List"><rhs name\="java.util.ArrayList"/></lhs><lhs name\="java.util.Collection"><rhs name\="java.util.ArrayList"/></lhs><lhs name\="java.lang.Iterable"><rhs name\="java.util.ArrayList"/></lhs><lhs name\="java.util.RandomAccess"><rhs name\="java.util.ArrayList"/></lhs><lhs name\="java.lang.Cloneable"><rhs name\="java.util.ArrayList"/></lhs><lhs name\="java.util.AbstractList"><rhs name\="java.util.ArrayList"/></lhs><lhs name\="java.util.AbstractCollection"><rhs name\="java.util.ArrayList"/></lhs><lhs name\="java.util.ArrayList"><rhs name\="java.util.ArrayList"/></lhs><lhs name\="jihe.Student"><rhs name\="jihe.Student"/></lhs><lhs name\="dwzhomework.Hero"><rhs name\="dwzhomework.Hero"/></lhs><lhs name\="dwzhomework.HeroAccess"><rhs name\="dwzhomework.HeroAccess"/></lhs><lhs name\="java.util.Iterator"><rhs name\="java.util.Scanner"/></lhs><lhs name\="java.io.Closeable"><rhs name\="java.util.Scanner"/></lhs><lhs name\="java.lang.AutoCloseable"><rhs name\="com.mysql.jdbc.JDBC4Connection"/><rhs name\="java.util.Scanner"/></lhs><lhs name\="oone2.Test"><rhs name\="oone2.Test"/></lhs><lhs name\="oone2.Point"><rhs name\="oone2.Point"/><rhs name\="oone2.Circle"/><rhs name\="oone2.Cylinder"/></lhs><lhs name\="oone2.Circle"><rhs name\="oone2.Circle"/><rhs name\="oone2.Cylinder"/></lhs><lhs name\="oone2.Cylinder"><rhs name\="oone2.Cylinder"/></lhs><lhs name\="oone4.English"><rhs name\="oone4.pingpangcoach"/><rhs name\="oone4.pingpangplayer"/></lhs><lhs name\="oone4.coach"><rhs name\="oone4.pingpangcoach"/><rhs name\="oone4.basketballcoach"/></lhs><lhs name\="oone4.person"><rhs name\="oone4.pingpangcoach"/><rhs name\="oone4.pingpangplayer"/><rhs name\="oone4.basketballplayer"/><rhs name\="oone4.basketballcoach"/></lhs><lhs name\="oone4.pingpangcoach"><rhs name\="oone4.pingpangcoach"/></lhs><lhs name\="oone4.player"><rhs name\="oone4.pingpangplayer"/><rhs name\="oone4.basketballplayer"/></lhs><lhs name\="oone4.pingpangplayer"><rhs name\="oone4.pingpangplayer"/></lhs><lhs name\="oone4.basketballplayer"><rhs name\="oone4.basketballplayer"/></lhs><lhs name\="oone4.basketballcoach"><rhs name\="oone4.basketballcoach"/></lhs><lhs name\="done_jdbc.BasnDon"><rhs name\="done_jdbc.BasnDon"/></lhs><lhs name\="java.sql.Wrapper"><rhs name\="com.mysql.jdbc.JDBC4Connection"/></lhs><lhs name\="java.sql.Connection"><rhs name\="com.mysql.jdbc.JDBC4Connection"/></lhs><lhs name\="done_jdbc.Hero"><rhs name\="done_jdbc.Hero"/></lhs><lhs name\="lxi.chaogeao"><rhs name\="lxi.chaogeao"/></lhs><lhs name\="java.lang.CharSequence"><rhs name\="java.lang.String"/></lhs><lhs name\="java.lang.constant.Constable"><rhs name\="java.lang.String"/></lhs><lhs name\="java.lang.constant.ConstantDesc"><rhs name\="java.lang.String"/></lhs><lhs name\="javax.swing.WindowConstants"><rhs name\="csgl_layout.tj"/><rhs name\="javax.swing.JFrame"/><rhs name\="vacation_jframe.home_jframe"/></lhs><lhs name\="javax.accessibility.Accessible"><rhs name\="csgl_layout.tj"/><rhs name\="javax.swing.JFrame"/><rhs name\="vacation_jframe.home_jframe"/></lhs><lhs name\="javax.swing.RootPaneContainer"><rhs name\="csgl_layout.tj"/><rhs name\="javax.swing.JFrame"/><rhs name\="vacation_jframe.home_jframe"/></lhs><lhs name\="javax.swing.TransferHandler$HasGetTransferHandler"><rhs name\="csgl_layout.tj"/><rhs name\="javax.swing.JFrame"/><rhs name\="vacation_jframe.home_jframe"/></lhs><lhs name\="java.awt.Frame"><rhs name\="csgl_layout.tj"/><rhs name\="javax.swing.JFrame"/><rhs name\="vacation_jframe.home_jframe"/></lhs><lhs name\="java.awt.MenuContainer"><rhs name\="csgl_layout.tj"/><rhs name\="javax.swing.JFrame"/><rhs name\="vacation_jframe.home_jframe"/></lhs><lhs name\="java.awt.Window"><rhs name\="csgl_layout.tj"/><rhs name\="javax.swing.JFrame"/><rhs name\="vacation_jframe.home_jframe"/></lhs><lhs name\="java.awt.Container"><rhs name\="csgl_layout.tj"/><rhs name\="javax.swing.JFrame"/><rhs name\="vacation_jframe.home_jframe"/></lhs><lhs name\="java.awt.Component"><rhs name\="csgl_layout.tj"/><rhs name\="javax.swing.JFrame"/><rhs name\="vacation_jframe.home_jframe"/></lhs><lhs name\="java.awt.image.ImageObserver"><rhs name\="csgl_layout.tj"/><rhs name\="javax.swing.JFrame"/><rhs name\="vacation_jframe.home_jframe"/></lhs><lhs name\="javax.swing.JFrame"><rhs name\="csgl_layout.tj"/><rhs name\="javax.swing.JFrame"/><rhs name\="vacation_jframe.home_jframe"/></lhs><lhs name\="csgl_biao.tb_goods"><rhs name\="csgl_biao.tb_goods"/></lhs><lhs name\="csgl_layout.GoodsManager"><rhs name\="csgl_layout.tj"/></lhs><lhs name\="vacation_jframe.home_jframe"><rhs name\="vacation_jframe.home_jframe"/></lhs><lhs name\="javax.swing.table.TableModel"><rhs name\="javax.swing.table.DefaultTableModel"/></lhs><lhs name\="vacation_biao.inoculatetable"><rhs name\="vacation_biao.inoculatetable"/></lhs><lhs name\="aa_Dao.BaseDAO"><rhs name\="aa_Dao.BaseDAO"/></lhs><lhs name\="aa_biao.Employee"><rhs name\="aa_biao.Employee"/></lhs><lhs name\="yggl_dao.BaseDAO"><rhs name\="yggl_dao.BaseDAO"/></lhs><lhs name\="yggl_biao.Employee"><rhs name\="yggl_biao.Employee"/></lhs></history>
+content_assist_number_of_computers=13
+content_assist_prefix_completion=false
+content_assist_proposals_background=255,255,255
+content_assist_proposals_foreground=0,0,0
+content_assist_show_visible_proposals=true
+content_assist_sorter=org.eclipse.jdt.ui.RelevanceSorter
+eclipse.preferences.version=1
+fontPropagated=true
+java.codemining.references=false
+org.eclipse.jdt.internal.ui.navigator.layout=2
+org.eclipse.jdt.internal.ui.navigator.librariesnode=true
+org.eclipse.jdt.ui.editor.tab.width=
+org.eclipse.jdt.ui.formatterprofiles.version=21
+org.eclipse.jdt.ui.javadoclocations.migrated=true
+org.eclipse.jdt.ui.text.code_templates_migrated=true
+org.eclipse.jdt.ui.text.custom_code_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
+org.eclipse.jdt.ui.text.custom_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
+org.eclipse.jdt.ui.text.templates_migrated=true
+org.eclipse.jface.textfont=1|Courier New|10.0|0|WINDOWS|1|0|0|0|0|0|0|0|0|1|0|0|0|0|Courier New;
+proposalOrderMigrated=true
+sourceHoverBackgroundColor=47,47,47
+spelling_locale_initialized=true
+tabWidthPropagated=true
+typefilter_migrated=true
+useAnnotationsPrefPage=true
+useQuickDiffPrefPage=true

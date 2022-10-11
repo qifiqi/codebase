@@ -1,0 +1,56 @@
+    public static void main(String[] args) throws IOException {
+        studentMange studentMange = new studentMange();
+//        获取用户组对象
+        Admin admin = conn.getAdmin();
+//        获取表操作对象
+        tableName= TableName.valueOf("my_db:student");
+//        获取控制台输入
+        scanner = new Scanner(System.in);
+//        获取表对象
+        table = conn.getTable(tableName);
+
+//        判断表是否存在
+        if (admin.tableExists(tableName)){
+            while (studentMange.quit){
+                //输出提示
+                Hint(1);
+                //用户输入
+                String sw =  scanner.next();
+                switch (sw){
+                    case "1":
+                        //添加
+                        studentMange.AddStudent(studentMange.CreateStudent());
+                        break;
+                    case "2":
+                        //查询全部
+                        studentMange.InquireAllPage();
+                        break;
+                    case "3":
+                        studentMange.Conditional();
+                        //条件查询
+                        break;
+                    case "4":
+                        //删除
+                        studentMange.DeleteStudent();
+                        break;
+                    case "5":
+                        //修改
+                        studentMange.UpDataStudent();
+                        break;
+                    case "6":
+                        //退出
+                        studentMange.quit = false;
+                        admin.close();
+                        table.close();
+                        conn.close();
+                        break;
+                    default:
+                        System.out.println("你输入的不正确");
+                        break;
+                }
+            }
+        }else {
+            System.out.println("表不存在");
+        }
+
+    }

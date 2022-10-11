@@ -1,0 +1,21 @@
+POST https://www.aqistudy.cn/apinew/aqistudyapi.php HTTP/1.1
+Host: www.aqistudy.cn
+Connection: keep-alive
+Content-Length: 490
+sec-ch-ua: " Not;A Brand";v="99", "Microsoft Edge";v="103", "Chromium";v="103"
+Accept: */*
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+X-Requested-With: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.53 Safari/537.36 Edg/103.0.1264.37
+sec-ch-ua-platform: "Windows"
+Origin: https://www.aqistudy.cn
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://www.aqistudy.cn/html/city_time.php?v=1.3
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6
+Cookie: Hm_lvt_6088e7f72f5a363447d4bafe03026db8=1656315302; Hm_lpvt_6088e7f72f5a363447d4bafe03026db8=1656315527
+
+haYVQbIeV=haMjRH1jEk3V8rTXxZaY0stcLvrHfblcQqmDF64zua50KQKEoYzQkM1ABNOW%2FNf2OBjL6gOc6lOGXGAuT%2FJIve4YvCzbgK4qqM6oVmVeKZ2Osb%2FP8qSpbqClHtTmdyAepRWsgB%2F0vnDVEtxXCd%2Blnv6a9MhUlCjfdZVlJ%2BSvWpf3DzPz%2F8u8404r9lEdgzNLUVDI4rWhFUXexlvtY3jY2%2FS4UT3Su8OzTLkXrLhLPyiyzMwQqbItkk9jpa0z%2BsJX8tQxcTf%2BDf8fTvn4xB5%2FQTBFedZlgmYDSjyONPlQv5%2BKRpmzh6yaTH6mbAE5xAsRE9h16gFHNDD9bh3yFMN8%2FfOpqdkzB9vqfPT%2FHa8KOnfXvvJL2olALp5V%2FAyvwXbq0ArVt2yyAqedB6zscQQDXwuukqQg9HwG%2Fqc2GUeOLODM3RXUcmIn5EYswJWsFqf6

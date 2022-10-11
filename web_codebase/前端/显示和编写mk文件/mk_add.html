@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="static\editor.md-master\examples\css\style.css" />
+    <link rel="stylesheet" href="static\editor.md-master\css\editormd.css" />
+    <script src="static\editor.md-master\examples\js\jquery.min.js"></script>
+    <script src="./static\editor.md-master\editormd.min.js"></script>
+</head>
+<body>
+    <div class="field">
+        <div id="md-content">
+            <textarea style="display: none;">[TOC]
+                写文件
+            
+            </textarea>
+        </div>
+    </div>
+    
+</body>
+
+    <script type="text/javascript">
+        var contentEditor;
+
+        $(function() {
+            // testEditor = editormd("md-content", {
+            //     width   : "90%",
+            //     height  : 640,
+            //     syncScrolling : "single",
+            //     path    : "static/editor.md-master/lib/"
+            // });
+        
+            testEditor = editormd({
+                    id      : "md-content",
+                    width   : "90%",
+                    height  : 640,
+                    path    : "static/editor.md-master/lib/"
+                });
+        });
+    </script>
+</html>

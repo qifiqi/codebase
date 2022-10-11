@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../jquery-3.6.0.min.js"></script>
+    <style>
+        .hide{
+            display: none;
+        }
+        #a2{
+            position: fixed;
+            background-color: yellow;
+            right: 20px;
+            bottom: 20px;
+            height: 50px;
+            width: 50px;
+        }
+    </style>
+
+</head>
+<body>
+<a href="" id="a1"></a>
+<div style="height: 500px;background-color: red;"></div>
+<div style="height: 500px;background-color: #887f7f;"></div>
+<div style="height: 500px;background-color: blue;"></div>
+<div style="height: 500px;background-color: saddlebrown;"></div>
+<a href="#a1" class="hide" id="a2">回去</a>
+
+<script>
+    $(window).scroll(function (){
+        if ($(window).scrollTop()>400){
+            $('#a2').removeClass('hide')
+        }else {
+            $('#a2').addClass('hide')
+        }
+    })
+</script>
+</body>
+</html>

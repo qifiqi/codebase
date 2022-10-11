@@ -1,0 +1,63 @@
+#main ul {
+  margin-right: -12px;
+  margin: 0 auto;
+  list-style: none;
+}
+#main li {
+  width: 30%;
+  height: 260px;
+  margin-right: 12px;
+  margin-bottom: 12px;
+  float: left;
+  border: 1px solid black;
+  background-color: #ff6700;
+}
+img {
+  float: left;
+  width: 60%;
+}
+.text {
+  float: right;
+  width: 40%;
+}
+.title {
+  font-size: 20px;
+}
+.page{
+  font-size:20px;
+  padding:0 89px;
+}
+
+.page ul li{
+  float: left;
+  list-style-type: none;
+  border: 1px solid #CCCCCC;
+  width: 36px;
+  height:36px;
+  line-height: 36px;
+  margin-left: 20px;
+  text-align: center;
+}
+
+.page .active{
+  border: none;
+  font-size:16px;
+}
+.page .active:hover{
+  border: none;
+  background-color: #fff;
+}
+
+.page .prev,.page .next{
+  width: 89px;
+}
+
+.page ul li:hover{
+  border:1px solid #38f;
+  background-color: #B0E0E6;
+}
+
+.page .prev{
+  display: none;
+
+}

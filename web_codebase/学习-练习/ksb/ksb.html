@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="topic no-select" style="font-size: 16px;">
+    <div class="clearfix top-hd clearfix exam_modal1">
+        <div class="topic-top"><!----> <!----> <!---->
+            <div class="topic-tit clearfix"><span class="topic-type">单选题</span><!----><!----><!----><!----><!---->
+                <!----><!----><!----><!----><!----><!----><!----><!----> <span style="float: left; font-weight: 700;"><!---->
+                    <!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!---->
+          1/200、
+        </span>
+                <div class="qusetion-box">针对金融行业中实时风控场景的核心诉求描述错误的是()﹒&nbsp;<span class="gay"
+                                                                                 style="font-weight: 300;font-size: 14px;">（1分）</span>
+                </div>
+            </div>
+        </div> <!---->
+        <div class="select-left pull-left options-w">
+            <div class="option"><span class="before-icon">A</span> <span>水平扩展:当系统处理能力出现瓶颈后，可通过节点的水平扩展提升处理性能。</span>
+            </div>
+            <div class="option"><span class="before-icon">B</span>
+                <span>处理速度快:端到端处理需要达到秒级，流处理平台负责的数据采集和数据处理要在1秒内完成。</span></div>
+            <div class="option"><span class="before-icon">C</span> <span>可靠性高:网络、软件等故障发生时，允许数据丢失。</span></div>
+            <div class="option"><span class="before-icon">D</span> <span>吞吐量高:需在短时内接收并处理大量数据记录，吞吐量需要达到数十兆/秒/节点。</span>
+            </div>
+        </div> <!----> <!----> <!----> <!----> <!----> <!---->
+        <div class="next-preve" style="clear: both;">
+            <button disabled="disabled" type="button"
+                    class="el-button opc-btn el-button--default el-button--small is-disabled"><!---->
+                <!----><span>上一题</span></button>
+            <button type="button" class="el-button el-button--primary el-button--small"><!----><!----><span>下一题</span>
+            </button> <!---->
+            <div class="control-right"><span class="collec"><svg aria-hidden="true" class="icon"><use
+                    xlink:href="#iconshoucang3"></use></svg> 收藏
+        </span> <!----></div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<script>
+    // ==UserScript==
+    // @name         考试宝
+    // @namespace    http://tampermonkey.net/
+    // @version      1.0
+    // @description  try to take over the world!
+    // @author       小符
+    // @match        https://www.zaixiankaoshi.com/mnks/simulation/*
+    // @icon         https://www.google.com/s2/favicons?sz=64&domain=zaixiankaoshi.com
+    // @require      https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js
+    // ==/UserScript==
+
+    //生成从minNum到maxNum的随机数
+    function randomNum(minNum, maxNum) {
+        switch (arguments.length) {
+            case 1:
+                return parseInt(Math.random() * minNum + 1, 10);
+                break;
+            case 2:
+                return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
+                break;
+            default:
+                return 0;
+                break;
+        }
+    }
+
+    (function () {
+        'use strict';
+        $(() => {
+            console.log('ok')
+
+            let setI = setInterval(() => {
+                const btnJEle = $('.el-button--primary')
+                const clsEle = $('.is-disabled')
+                if (clsEle.length === 0) {
+                    clearInterval(setI);
+                    $('.submit-btn').click();
+                } else {
+                    const divOptJle = $('.option')
+                    const btnP = $('.opcity-btn')
+                    const tjEle = $('button:contains(提交答案)');
+                    const paixEle = $('.paixu')
+
+
+                    if (divOptJle.length > 0) {
+                        if (paixEle.length > 0) {
+                            for (let i = 0; i < divOptJle.length; i++) {
+                                divOptJle[i].click();
+                            }
+                            tjEle.click();
+                        } else {
+                            for (let i = 0; i < divOptJle.length; i++) {
+                                if (divOptJle[i].classList.contains('right')) {
+                                    divOptJle[i].classList.remove('right');
+                                }
+                            }
+                            if (divOptJle.length < 4) {
+                                const num = randomNum(0, 1)
+                                divOptJle[num].click();
+                            } else {
+                                const num = randomNum(0, 3)
+                                divOptJle[num].click();
+                            }
+                        }
+
+                    } else if (btnP.length > 0) {
+                        $('.el-input__inner').text("sb")
+                        btnP.click();
+                    }
+
+                    btnJEle.click();
+
+
+                }
+            }, 50)
+
+
+        })
+        // Your code here...
+    })();
+</script>
+</html>

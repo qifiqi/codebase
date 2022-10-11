@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据可视化</title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <!-- 设置头部 -->
+    <header>
+        <h1>可视化展板-Echerts</h1>
+        <div class="showTime"></div>
+    </header>
+
+    <!-- 设置身体盒子 -->
+    <section class="mainbox">
+        <!-- 左边的盒子 -->
+        <div class="column left">
+            <div class="panel bar">
+                <h2>柱形图-就业行业</h2>
+                <div class="chart"></div>
+                <div class="panel-footer">
+                </div>
+            </div>
+            <div class="panel line">
+                <h2>折线图-人员变化
+                    <a href="javascript:;">2020</a>
+                    <a href="javascript:;">2021</a>
+                </h2>
+                <div class="chart"></div>
+                <div class="panel-footer">
+                </div>
+            </div>
+            <div class="panel pie">
+                <h2>饼状图-年龄发布</h2>
+                <div class="chart"></div>
+                <div class="panel-footer">
+                </div>
+            </div>
+            
+        </div>
+        <!-- 中间部分 -->
+        <div class="column center">
+            <!-- 数字模块 -->
+            <div class="no">
+                <div class="no-hd">
+                    <ul>
+                        <li>12580</li>
+                        <li>10000</li>
+                    </ul>
+                    
+                </div>
+                <div class="no-bd">
+                    <ul>
+                        <li>前端要求人数</li>
+                        <li>市场供应人数</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 地图 -->
+            <div class="map">
+                <!-- 球体背景图 -->
+                <div class="map1"></div>
+                <div class="map2"></div>
+                <div class="map3"></div>
+                <!-- 地图模块 -->
+                <div class="chart"></div>
+            </div>
+        </div>
+        <!-- 右边部分 -->
+        <div class="column right">
+            <div class="panel bar2">
+                <h2>柱形图-技能掌握</h2>
+                <div class="chart"></div>
+                <div class="panel-footer">
+                </div>
+            </div>
+            <div class="panel line2">
+                <h2>折线图-播放量</h2>
+                <div class="chart"></div>
+                <div class="panel-footer">
+                </div>
+            </div>
+            <div class="panel pie2">
+                <h2>饼状图-地区发布</h2>
+                <div class="chart"></div>
+                <div class="panel-footer">
+                </div>
+            </div>
+            
+            
+        </div>
+    </section>
+    <script src="./js/flexible.js"></script>
+    <script src="./js/echarts.min.js"></script>
+    <script src="./js/jquery.js"></script>
+    <script src="./js/china.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/myMap.js"></script>
+</body>
+
+<!-- // 格式： 当前时间：2020年3月17-0时54分14秒 -->
+<script>
+        var t = null;
+        t = setTimeout(time, 1000);//開始运行
+        function time() {
+            clearTimeout(t);//清除定时器
+            dt = new Date();
+            var y = dt.getFullYear();
+            var mt = dt.getMonth() + 1;
+            var day = dt.getDate();
+            var h = dt.getHours();//获取时
+            var m = dt.getMinutes();//获取分
+            var s = dt.getSeconds();//获取秒
+            document.querySelector(".showTime").innerHTML = '当前时间：' 
+            + y + "年" 
+            + mt + "月" 
+            + day + "-" 
+            + h + "时" 
+            + m + "分" 
+            + s + "秒";
+            t = setTimeout(time, 1000); //设定定时器，循环运行     
+        }
+</script>
+
+</html>

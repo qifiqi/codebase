@@ -1,0 +1,16 @@
+GET http://jzsc.mohurd.gov.cn/api/webApi/dataservice/query/comp/list?pg=0&pgsz=15&total=0 HTTP/1.1
+Host: jzsc.mohurd.gov.cn
+timeout: 30000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36
+Referer: http://jzsc.mohurd.gov.cn/data/company
+
+
+
+
+
+
+地址：http://jzsc.mohurd.gov.cn/data/company
+需求：用requests模块采集30页数据，自动化技术绕道，用mysql建表进行存储
+字段：包含企业名称、法定代表、注册地
+交付：代码 + 带有数据sql文件
+题解：本题是AES加密，可以采用crypto-js进行解密

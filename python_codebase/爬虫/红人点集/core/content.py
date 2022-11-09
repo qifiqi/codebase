@@ -50,9 +50,9 @@ def get_Data(param: dict) -> json:
                "&tenant=1&salt=" + "kbn%&)@<?FGkfs8sdf4Vg1*+;`kf5ndl$"
     data['sign'] = sign_get(sign_str)
     response = seeeion.post(url, json.dumps(data), timeout=5)
+    print(response.text)
     try:
         response = response.json()
-
     except Exception as ee:
         print(ee)
     static = response.get("status")
@@ -63,5 +63,4 @@ def get_Data(param: dict) -> json:
         get_log()
         get_Data(param)
     else:
-        return "no"
-
+        return "no", response.text

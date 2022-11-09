@@ -20,56 +20,6 @@ ip_queue = queue.Queue()  # 设置队列
 
 ip_ = []
 
-ipsss = [
-    {
-        "ip:port": "121.205.69.229:43677",
-        "http_type": "Socks4\/Socks5",
-        "is_setup_auth": 1,
-        "time_interval": 300
-    },
-    {
-        "ip:port": "121.205.69.229:43678",
-        "http_type": "HTTP\/HTTPS",
-        "is_setup_auth": 1,
-        "time_interval": 300
-    },
-    {
-        "ip:port": "112.192.148.205:34028",
-        "http_type": "Socks4\/Socks5",
-        "is_setup_auth": 1,
-        "time_interval": 600
-    },
-    {
-        "ip:port": "112.192.148.205:34029",
-        "http_type": "HTTP\/HTTPS",
-        "is_setup_auth": 1,
-        "time_interval": 600
-    },
-    {
-        "ip:port": "182.96.45.254:53493",
-        "http_type": "Socks4\/Socks5",
-        "is_setup_auth": 1,
-        "time_interval": 300
-    },
-    {
-        "ip:port": "106.13.185.186:7225",
-        "domain:port": "suzhou01.mimvp.cn:7225",
-        "http_type": "Socks4\/Socks5",
-        "is_setup_auth": 1,
-        "time_interval": 2592000,
-        "time_avail": 460820
-    },
-    {
-        "ip:port": "106.13.185.186:7226",
-        "domain:port": "suzhou01.mimvp.cn:7226",
-        "http_type": "HTTP\/HTTPS",
-        "is_setup_auth": 1,
-        "time_interval": 2592000,
-        "time_avail": 460820
-    }
-]
-
-
 def generators(url):
     header = {
         'Referer': url,

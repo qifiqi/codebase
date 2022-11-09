@@ -1,7 +1,9 @@
+import json
+
+import requests
 import scrapy
 from yaofangwang.items import YaofangwangItem
-
-
+from scrapy.selector import Selector
 
 
 class YaofangwangsSpider(scrapy.Spider):
@@ -10,48 +12,40 @@ class YaofangwangsSpider(scrapy.Spider):
     # start_urls = [f"https://www.yaofangwang.com/catalog-1/p{i}/" for i in range(1,1156)]
     start_urls = ["https://www.yaofangwang.com/catalog-1/p1/"]
 
-
-
-
     def parse(self, response):
-
-        def subs(s):
-            font = {
-                "&#x351D;": 0,
-                "&#x3E73;": 1,
-                "&#xB561;": 2,
-                "&#x0F88;": 3,
-                "&#xCC5E;": 4,
-                "&#x1ECC;": 5,
-                "&#xE171;": 6,
-                "&#x0FFF;": 7,
-                "&#x2FCF;": 8,
-                "&#x2992;": 9,
-            }
-            ss = s.split("&")
-            print(ss)
-            a = [ss[0]]
-            for i in ss[1:]:
-                print(i)
-                i = "&" + i
-                for k in font.keys():
-                    i = i.replace(k, str(font[k]))
-                    print(i)
-                else:
-                    a.append(i)
-            return "".join(a)
-
         li_list = response.css("ul.goodlist li")
-        item = YaofangwangItem()
+        path = response.css("a.next::attr(href)").extract_first()
+        if path is not None:
+            next_path = "https://www.yaofangwang.com" + path
+            yield scrapy.Request(
+                url=next_path,
+                callback=self.parse,
+                dont_filter=True
+            )
+
+        rel_list = []
         for li in li_list:
-            print(li)
+            rel = li.css("div.info::attr(rel)").extract_first()
+            rel_list.append(rel)
+
+        rel = "%2C".join(rel_list)
+        print(rel)
+        Request_url_id_list = f"https://www.yaofangwang.com/Medicine/getMedicineByIds?mids={rel}"
+        yield scrapy.Request(
+            url=Request_url_id_list,
+            callback=self.get_yp_list,
+            dont_filter=True
+        )
+
+    def get_yp_list(self, response):
+        res = json.loads(response.text)["result"]
+        item = YaofangwangItem()
+        for data in res:
             "药品图地址，价格，药品名，规格，批准文号，生产厂家"
-            item['img_path'] = li.css("img.autoimg::attr(src)").extract_first()
-            item['price'] = li.css("span.ybfont_ml3::text").extract_first()
-            item['name'] = li.css("a.txt::text").extract_first()
-            item['gge'] = li.css("p.st::text").extract_first()
-            pzwh = li.css("span.ybfont::text").extract_first()
-            # print(self.subs(pzwh))
-            item['pzwh'] = subs(pzwh)
-            item['sccj'] = li.css("p.n::text").extract_first()
-            # print(item)
+            item['img_path'] = "https:" + data.get("intro_image")
+            item['price'] =data.get('price_min')
+            item['name'] = data.get("medicine_name")
+            item['gge'] = data.get("standard")
+            item['pzwh'] = data.get("authorized_code")
+            item['sccj'] = data.get("title")
+            yield item

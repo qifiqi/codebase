@@ -18,6 +18,7 @@ import requests
 import pandas as pd
 from faker import Faker
 from openpyxl import Workbook
+from urllib.parse import quote
 
 fak = Faker(locale='zh_CN')
 row_queue = queue.Queue()
@@ -31,7 +32,7 @@ head = {
     'Sign': "d006208f1938e7d543d1f88f74c38b6e",
     'TimeStamp': '1658467885823',
     'platform': "web",
-    'cookie': "",
+    'cookie': input("cookie:"),
     "authorization": "%22V2rhmypP5ORpQyiTBkhyDInKR/HjDD1pEQvFVlkJsx4=%22"
 }
 
@@ -56,11 +57,10 @@ def dict_cookie(cookie_str: str) -> dict:
 
 
 # head['cookie'] = "UM_distinctid=1824f37b4ea24a-01c372a654161c-76492e29-144000-1824f37b4ebbca; __gads=ID=a584ec7ee881aac2-22a692bc61d50055:T=1659186428:RT=1659186428:S=ALNI_MZm1eNZ5lrPwtEQ2kuait6xCOwMQw; __gpi=UID=00000821f06e05c9:T=1659186428:RT=1661921629:S=ALNI_MZRyqMTDf0KcA52ncSM0ce2dAHFXg; Hm_lvt_fafd23c81b939a6c401dc831cc0eeac6=1662178574,1662271247,1664255984,1664256790; CNZZDATA1278923901=2017846672-1664285189-https%253A%252F%252Fwww.zaixiankaoshi.com%252F%7C1664285189; uu=e321d8ae-d0ff-4c32-9d6e-4d3fa22f2105; token=V2rhmypP5ORpQyiTBkhyDInKR%2FHjDD1pEQvFVlkJsx4%3D; SOTOKEN=V2rhmypP5ORpQyiTBkhyDInKR%2FHjDD1pEQvFVlkJsx4%3D; Hm_lpvt_fafd23c81b939a6c401dc831cc0eeac6=1664287059"
-head['cookie'] = input("cookie:")
-head['authorization'] = input("authorization:")
 
-head['CLIENT-IDENTIFIER'] = dict_cookie(cookie_str=head['cookie'])['uu']
-
+dict_cookies = dict_cookie(cookie_str=head['cookie'])
+head['CLIENT-IDENTIFIER'] = dict_cookies['uu']
+head['authorization'] = quote("\"")+dict_cookies.get('token')+quote("\"")
 
 def sign(api_url: str) -> tuple[Any, str]:
     """
@@ -83,21 +83,21 @@ def sign(api_url: str) -> tuple[Any, str]:
     return fanke.eval(aa), str(n)
 
 
-def exam_page():
-
+def exam_page(data):
     url = "https://www.zaixiankaoshi.com/api/user/exam/page"
-    data = {"keyword": "", "page": 1, "size": 10, "show_daily": "1"}
+
     head['Sign'], head['TimeStamp'] = sign(url)
     head['referer'] = url
     response = requests.post(url, headers=head, data=data)
     try:
         res_json = response.json()
         res_json_row = res_json.get("data").get('rows')
-        print(res_json_row[0].get('title'))
-        examResult_getRankingList(exa_id=res_json_row[0].get('id'))
-        examResult_getRankingList(exa_id=res_json_row[1].get('id'))
+        for res in res_json_row:
+            examResult_getRankingList(exa_id=res.get('id'))
+        # examResult_getRankingList(exa_id=res_json_row[1].get('id'))
     except Exception as ex:
         print(ex)
+
 
 
 def examResult_getRankingList(exa_id: object = '3756895') -> object:
@@ -105,6 +105,7 @@ def examResult_getRankingList(exa_id: object = '3756895') -> object:
     用来请求
     :param exa_id:
     """
+
     def sub_symbol(strs):
         com = re.compile('[^\u4e00-\u9fa5\u0030-\u0039\u0041-\u005a\u0061-\u007a]')
         return com.sub('', strs)
@@ -123,20 +124,23 @@ def examResult_getRankingList(exa_id: object = '3756895') -> object:
     try:
         res_json = response.json()
         title = sub_symbol(response_page.json().get('data').get("exam").get("title"))
+        print(title)
         res_json_row = res_json.get("data").get('rows')
+
     except Exception as ex:
         print(ex)
         return ""
-    res_particulars = []
-    for res in res_json_row:
-        login_options = json.loads(res.get("login_options"))
-        res_particulars.append({
-            "stu_name": login_options[0].get("value"),
-            "phone": login_options[1].get("value"),
-            "passed": res.get("passed"),
-            "score": res.get("score"),
-        })
-    pd_exa(res_particulars, title)
+    if res_json_row is not None:
+        res_particulars = []
+        for res in res_json_row:
+            login_options = json.loads(res.get("login_options"))
+            res_particulars.append({
+                "stu_name": login_options[0].get("value"),
+                "phone": login_options[1].get("value"),
+                "passed": res.get("passed"),
+                "score": res.get("score"),
+            })
+        pd_exa(res_particulars, title)
 
 
 def pd_exa(res_particulars, title='11'):
@@ -179,7 +183,11 @@ def exl_save(json_data, average_score, passing_rate, title):
 
 
 if __name__ == '__main__':
-    exam_page()#入口直接获取最新
+    data = {"keyword": "", "page": 1, "size": 10, "show_daily": "1"}
+    exam_page(data)  # 入口直接获取最新
+    data = {"keyword": "", "page": 2, "size": 10, "show_daily": "1"}
+    exam_page(data)  # 入口直接获取最新
+
     # examResult_getRankingList('3756927')
     # examResult_getRankingList('3756895')
     # pd_exa()

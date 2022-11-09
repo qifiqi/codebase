@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="{% static 'app01/js/jquery-3.6.0.js' %}"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="{% static 'app01/css/bootstrap.min.css' %}">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="{% static 'app01/js/bootstrap.min.js' %}"></script>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="jumbotron">
+            <h1>404 当前页面不存在</h1>
+            <p>不存在点击按钮返回首页</p>
+            <p><a class="btn btn-primary btn-lg" href="{% url 'home' %}" role="button">go! home</a></p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

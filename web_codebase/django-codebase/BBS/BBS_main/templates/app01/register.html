@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="{% static 'app01/js/jquery-3.6.0.js' %}"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="{% static 'app01/css/bootstrap.min.css' %}">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="{% static 'app01/js/bootstrap.min.js' %}"></script>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h1 class="text-center">注册</h1>
+            <form id="myform">
+                {% csrf_token %}
+                {% for foo in form_obj %}
+                    <div class="form-group">
+                        <label for="">{{ foo.label }}</label>
+                        {{ foo }}
+                        <span style="color: red" class="pull-right">{{ foo.errors }}</span>
+                    </div>
+                {% endfor %}
+
+                <div class="form-group">
+                    <label for="myfile">头像
+                        <img src="/media/avatar/default.png" id="myfileImg" alt="" width="80px"
+                             style="margin-left: 10px">
+                    </label>
+                    <input type="file" id="myfile" style="display: none" name="avatar">
+                </div>
+                <input type="button" id="id_commit" class="btn btn-primary pull-right" value="注册">
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    {#实时显示头像#}
+    $("#myfile").change(function () {
+        {#文件阅读器对象#}
+        {#1.生成一个文件阅读器对象#}
+        let myFileReaderObj = new FileReader()
+        {#2.获取用户上传的头像文件对象#}
+        let fileObj = $(this)[0].files[0]
+        {#3.将文件对象交给阅读器对象读取#}
+        myFileReaderObj.readAsDataURL(fileObj)  //异步操作
+
+        {#4.利用文件阅读器将文件展示到前端  修改src属性#}
+        // 文件阅读器加载完毕再执行
+        myFileReaderObj.onload = function () {
+            $("#myfileImg").attr("src", myFileReaderObj.result)
+        }
+
+    })
+
+    $("#id_commit").click(function () {
+        //发送ajax请求
+        let formDataObj = new FormData();
+
+        $.each($("#myform").serializeArray(), function (index, obj) {
+            formDataObj.append(obj.name, obj.value)
+        });
+
+        formDataObj.append("avatar", $("#myfile")[0].files[0])
+
+        $.post({
+            url: "",
+            data: formDataObj,
+            contentType: false,
+            processData: false,
+            success: function (args) {
+                if (args.code === 200) {
+                    //跳转到登录页面
+                    window.location.href = args.url
+                } else if (args.code === 2000) {
+                    $.each(args.msg, function (index, obj) {
+                        let targetId = "#id_" + index
+                        $(targetId).next().text(obj[0]).parent().addClass("has-error")
+
+
+                    })
+                }
+            }
+        })
+    })
+
+    //直接给所有的input框绑定一个焦点事件
+    $("input").focus(function () {
+        //将input 下面的span标签和input标签外面的div标签的属性和内容修改
+        $(this).next().text("").parent().removeClass("has-error")
+    })
+</script>
+</body>
+</html>

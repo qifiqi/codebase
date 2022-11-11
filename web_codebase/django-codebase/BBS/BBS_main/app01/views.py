@@ -1,5 +1,8 @@
+import json
+import time
+import os.path
 import random
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.http import JsonResponse, HttpResponse
 from app01.app01_forms import MyRegForm
 from app01 import models
@@ -9,6 +12,11 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.db.models.functions import TruncMonth
+from django.db.models import F
+from django.db import transaction
+from utils.app01_page import Pagination
+from bs4 import BeautifulSoup
+from BBS_main import settings
 
 
 # Create your views here.
@@ -67,14 +75,13 @@ def login(requests):
             if user_obj:
                 # 保存用户状态
                 auth.login(requests, user_obj)
-                back_dic["url"] = redirect("app01_home").url
+                back_dic["url"] = reverse("home")
             else:
                 back_dic["code"] = 402
                 back_dic["msg"] = "用户名或者密码错误"
         else:
             back_dic["code"] = 403
             back_dic["msg"] = "验证码错误"
-        print(back_dic)
         return JsonResponse(back_dic)
     return render(requests, "app01/login.html")
 
@@ -160,6 +167,12 @@ def home(requests):
     article_queryset = models.Article.objects.all()
 
     # 分页
+    page_obj = Pagination(
+        current_page=requests.GET.get("page", 1),
+        all_count=article_queryset.count(),
+        per_page_num=10,
+    )
+    page_queryset = article_queryset[page_obj.start:page_obj.end]
 
     return render(requests, "app01/home.html", locals())
 
@@ -199,19 +212,278 @@ def site(requests, username, **kwargs):
         else:
             return render(requests, "error_404.html")
 
-    # 1.查询当前用户所有的分类及分类小的文章数
-    category_list = models.Category.objects.filter(blog=blog).annotate(
-        count_name=Count("article__pk")
-    ).values("pk", "name", "count_name")
+    # # 1.查询当前用户所有的分类及分类小的文章数
+    # category_list = models.Category.objects.filter(blog=blog).annotate(
+    #     count_name=Count("article__pk")
+    # ).values("pk", "name", "count_name")
+    #
+    # # 2.差早当前用户所有的标签和标签数
+    # tag_list = models.Tag.objects.filter(blog=blog).annotate(
+    #     count_name=Count("article__pk")
+    # ).values("pk", "name", "count_name")
+    #
+    # # 3.更加年月份分组统计
+    # data_list = models.Article.objects.filter(blog=blog).annotate(
+    #     month=TruncMonth("create_time")).values("month").annotate(
+    #     count_name=Count("pk")).values("month", "count_name")
 
-    # 2.差早当前用户所有的标签和标签数
-    tag_list = models.Tag.objects.filter(blog=blog).annotate(
-        count_name=Count("article__pk")
-    ).values("pk", "name", "count_name")
-
-    # 3.更加年月份分组统计
-    data_list = models.Article.objects.filter(blog=blog).annotate(
-        month=TruncMonth("create_time")).values("month").annotate(
-        count_name=Count("pk")).values("month", "count_name")
+    # 分页
+    page_obj = Pagination(
+        current_page=requests.GET.get("page", 1),
+        all_count=article_list.count(),
+        per_page_num=10,
+    )
+    page_queryset = article_list[page_obj.start:page_obj.end]
 
     return render(requests, "app01/site.html", locals())
+
+
+# 文章详情
+def article_detail(requests, username, article_id):
+    """
+    应该校验username和article_id是否存在，
+    :param requests:
+    :param username:用户名
+    :param article_id:文章id
+    :return:
+    """
+
+    article_obj = models.Article.objects.filter(pk=article_id, blog__userinfo__username=username).first()
+    if not article_obj:
+        return render(requests, "error_404.html")
+
+    user_obj = models.UserInfo.objects.filter(username=username).first()
+    blog = user_obj.blog
+
+    # 获取当前文章的所有评论内容
+
+    comment_list = models.Comment.objects.filter(article=article_obj)
+
+    return render(requests, "app01/article_detail.html", locals())
+
+    pass
+
+
+# 点赞和点踩
+def up_or_down(requests):
+    """
+    1.校验登录
+    2. 自己不能给自己点
+    3。只能点一次
+    4.操作数据库
+    点赞点擦的处理
+    :param requests:
+    :return:
+    """
+    if requests.is_ajax():
+        back_dict = {"code": 200, "msg": ""}
+
+        # 判断是否登录
+        if requests.user.is_authenticated:
+            article_id = requests.POST.get("article_id")
+            is_up = json.loads(requests.POST.get("is_up"))
+
+            # 判断是否是自己写的
+            article_obj = models.Article.objects.filter(pk=article_id).first()
+            if not article_obj.blog.userinfo == requests.user:
+
+                # 校验用户是否已经点过
+                is_click = models.UpAndDown.objects.filter(user=requests.user, article=article_obj)
+                if not is_click:
+
+                    # 操作数据库 ,要同步操作
+                    # 判断是点赞还是点擦
+                    if is_up:
+                        # 给点赞增加一
+                        models.Article.objects.filter(pk=article_id).update(up_num=F("up_num") + 1)
+                        back_dict["msg"] = "点赞成功"
+                        pass
+                    else:
+                        # 给点擦加一
+                        models.Article.objects.filter(pk=article_id).update(down_num=F("down_num") + 1)
+                        back_dict["msg"] = "点踩成功"
+                    # 操作表
+                    models.UpAndDown.objects.create(user=requests.user, article=article_obj, is_up=is_up)
+                else:
+                    # 校验用户是否已经点过
+                    back_dict["code"] = 2001
+                    back_dict["msg"] = "你已经点过l"
+            else:
+                # 判断是否是自己写的
+                back_dict["code"] = 2002
+                back_dict["msg"] = "不可以点自己"
+        else:
+            # 判断是否登录
+            back_dict["code"] = 2003
+            back_dict["msg"] = '<a href="/login/">要登录哦</a>'
+        return JsonResponse(back_dict)
+
+
+# 文章评论
+def article_comment(requests):
+    """
+    自己可以给自己评论
+    :param requests:
+    :return:
+    """
+    back_dict = {"code": 200, "msg": ""}
+    if requests.is_ajax():
+        if requests.method == "POST":
+            if requests.user.is_authenticated:
+                article_id = requests.POST.get("article_id")
+                parentId = requests.POST.get("parentId")
+                comment = requests.POST.get("comment")
+                # 直接操作评论表存储数据,动两张表
+                # 开启事务
+                with transaction.atomic():
+                    models.Article.objects.filter(pk=article_id).update(comment_num=F("comment_num") + 1)
+                    models.Comment.objects.create(
+                        user=requests.user,
+                        article_id=article_id,
+                        content=comment,
+                        parent_id=parentId
+                    )
+                back_dict["msg"] = "评论成功"
+            else:
+                back_dict["code"] = 2001
+                back_dict["msg"] = "用户未登录"
+
+        return JsonResponse(back_dict)
+
+
+@login_required
+def backend(requests):
+    """
+    后台
+    :param requests:
+    :return:
+    """
+    article_list = models.Article.objects.filter(blog=requests.user.blog)
+    # 分页
+    page_obj = Pagination(
+        current_page=requests.GET.get("page", 1),
+        all_count=article_list.count(),
+        per_page_num=10,
+    )
+    page_queryset = article_list[page_obj.start:page_obj.end]
+
+    return render(requests, "app01/app10_backend/backend.html", locals())
+
+
+@login_required
+def backend_add_article(requests):
+    category_list = models.Category.objects.filter(blog=requests.user.blog)
+    tag_list = models.Tag.objects.filter(blog=requests.user.blog)
+
+    if requests.method == "POST":
+        title = requests.POST.get("title")
+        content = requests.POST.get("content")
+        category_id = requests.POST.get("category")
+        tag_list = requests.POST.getlist("tag")
+        # 模块使用
+        soup = BeautifulSoup(content, "html.parser")
+        # 获取所有的标签
+        tags = soup.find_all()
+
+        # 处理标签
+        for tag in tags:
+            if tag.name == "script":
+                # 是就删除
+                tag.decompose()
+        # 文章简介
+        # 暴力截取所有
+        # desc = content[:150]
+        # 2.获得全部文本再截取
+        desc = soup.text[:150]
+
+        article_obj = models.Article.objects.create(
+            title=title,
+            content=str(soup),
+            desc=desc,
+            category_id=category_id,
+            blog=requests.user.blog
+        )
+
+        # 文章标签表示自己创建的是用不了ORM自带的add，remove，clear
+        # 自己操作 一次数据创建多
+
+        # 使用批量插入 bulk_create()
+        article_obj_list = []
+        # 生成多个文章对应标签的对象
+        for i in tag_list:
+            article_obj_list.append(
+                models.Article2Tag(article=article_obj, tag_id=i)
+            )
+        # 批量插入
+        models.Article2Tag.objects.bulk_create(article_obj_list)
+        # 跳转到文章后台管理
+        return redirect(reverse("backend"))
+
+    return render(requests, "app01/app10_backend/backend_add_article.html", locals())
+
+
+# 编辑器上传文件
+def upload_img(requests):
+    """
+    返回格式限制
+    //成功时
+{
+        "error" : 0,
+        "url" : "http://www.example.com/path/to/file.ext"
+}
+//失败时
+{
+        "error" : 1,
+        "message" : "错误信息"
+}
+    :param requests:
+    :return:
+    """
+    back_dict = {
+        "error": 0,
+        # "url":"static/app01/img/default.png"
+    }  # 提前定义数据格式
+    if requests.method == "POST":
+        # 获取用户上传的图片数据
+        file_obj = requests.FILES.get("imgFile")
+        # 手动拼接存储路径
+        file_dir = os.path.join(settings.BASE_DIR, "media", "article_img")
+        # 优化操作
+        # 判断是否存在不存在创建
+        if not os.path.isdir(file_dir):
+            os.mkdir(file_dir)
+        # 做图片名称处理
+        img_file = "_".join((str(requests.user.pk), str(int(time.time())), file_obj.name))
+        # 拼接图片完整路径
+        file_path = os.path.join(file_dir, img_file)
+        with open(file_path, "wb") as f:
+            for line in file_obj:
+                f.write(line)
+
+        back_dict["url"] = f"media/article_img/{img_file}"
+
+        return JsonResponse(back_dict)
+
+
+# 修改用户头像
+@login_required
+def set_avatar(requests):
+    """
+
+    :param requests:
+    :return:
+    """
+    if requests.method == "POST":
+        img_file_obj = requests.FILES.get("avatar")
+        # 这个不会写到数据库中文件只会是文件名，没有路径
+        # models.UserInfo.objects.filter(pk=requests.user.pk).update(avatar=img_file_obj)
+        # 解决办法
+         # 1.自己拼接
+        # 2.换一种更新
+        user_obj = requests.user
+        user_obj.avatar = img_file_obj
+        user_obj.save()
+        return redirect(reverse("home"))
+    return render(requests,"app01/app10_backend/set_avatar.html",locals())
+
+    pass

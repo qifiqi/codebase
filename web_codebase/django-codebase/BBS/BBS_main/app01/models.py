@@ -33,7 +33,7 @@ class UserInfo(AbstractUser):
 class Blog(models.Model):
     site_name = models.CharField(verbose_name="站点名称", max_length=32)
     site_title = models.CharField(verbose_name="站点标题", max_length=32)
-    site_theme = models.CharField(verbose_name="站点样式", max_length=32)  # 存储css、js路径
+    site_theme = models.CharField(verbose_name="站点样式", max_length=64)  # 存储css、js路径
 
     def __str__(self):
         return self.site_name
@@ -58,8 +58,8 @@ class Tag(models.Model):
 
 
 class Article(models.Model):
-    title = models.CharField(verbose_name="文章标题", max_length=32)
-    desc = models.CharField(verbose_name="文章简介", max_length=32)
+    title = models.CharField(verbose_name="文章标题", max_length=64)
+    desc = models.CharField(verbose_name="文章简介", max_length=255)
     # 文章内容有很多，一般情况下都是使用TextFiled()
     content = models.TextField(verbose_name="文章内容")
 
@@ -99,7 +99,7 @@ class UpAndDown(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(to="UserInfo", on_delete=models.SET_NULL, null=True)
     article = models.ForeignKey(to="Article", on_delete=models.SET_NULL, null=True)
-    content = models.CharField(max_length=5, verbose_name="评论内容")
+    content = models.CharField(max_length=32, verbose_name="评论内容")
     comment_time = models.DateTimeField(auto_now_add=True)
     # 自关联
-    parent = models.ForeignKey(to="self", on_delete=models.CASCADE)
+    parent = models.ForeignKey(to="self", on_delete=models.CASCADE,null=True)

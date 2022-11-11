@@ -1,0 +1,32 @@
+{% extends "app01/app10_backend/backend_base.html" %}
+
+
+{% block article %}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <td>标题</td>
+            <td>评论数</td>
+            <td>点赞数</td>
+            <td>操作</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for article in page_queryset %}
+            <tr>
+                <td><a href="{% url 'article_detail' article.blog.userinfo.username article.pk %}">{{ article.title }}</a></td>
+                <td>{{ article.comment_num }}</td>
+                <td>{{ article.up_num }}</td>
+                <td><a href="#">编辑</a></td>
+                <td><a href="#">删除</a></td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    <div class="pull-right">
+        {{ page_obj.page_html|safe }}
+
+    </div>
+{% endblock %}

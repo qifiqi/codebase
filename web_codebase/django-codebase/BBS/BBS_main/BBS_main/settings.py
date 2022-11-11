@@ -124,6 +124,8 @@ STATICFILES_DIRS = [
 ]
 AUTH_USER_MODEL = "app01.UserInfo"
 
+X_FRAME_OPTIONS = 'ALLOWALL'
+
 LOGIN_URL="/login/"
 
 # 配置用户上传文件位置

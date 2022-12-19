@@ -5,6 +5,7 @@ from tkinter import ttk
 import pywifi
 from pywifi import const
 import time
+from time import sleep
 import tkinter.filedialog
 import tkinter.messagebox
 
@@ -105,8 +106,8 @@ class MY_GUI():
         for index, wifi_info in enumerate(scans_res):
             # print("%-*s| %s | %*s |%*s\n"%(20,index,wifi_info.ssid,wifi_info.bssid,,wifi_info.signal))
             self.wifi_tree.insert("", 'end', values=(
-            index + 1, wifi_info.ssid.encode('raw_unicode_escape', 'strict').decode(), wifi_info.bssid,
-            wifi_info.signal))
+                index + 1, wifi_info.ssid.encode('raw_unicode_escape', 'strict').decode(), wifi_info.bssid,
+                wifi_info.signal))
         # print("| %s | %s | %s | %s \n"%(index,wifi_info.ssid,wifi_info.bssid,wifi_info.signal))
 
     # 添加密码文件目录
@@ -190,4 +191,5 @@ def gui_start():
     init_window.mainloop()
 
 
-gui_start()
+if __name__ == '__main__':
+    gui_start()

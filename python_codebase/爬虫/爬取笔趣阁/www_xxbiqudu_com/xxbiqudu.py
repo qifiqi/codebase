@@ -9,22 +9,20 @@ import os
 import re
 import sys
 import time
-
 import faker
 import requests
-from lxml import etree
 import queue
 import threading
 from threading import Lock
-
+from tqdm import tqdm
+from lxml import etree
 
 q = queue.Queue()
 c = queue.Queue()
 
 lock = Lock()
-path_dir = None
-title = None
 
+path_dir = None
 
 class p_gets(threading.Thread):
     """生产者"""
@@ -94,68 +92,103 @@ class c_html(threading.Thread):
         print(tuple_text[0] + 'ok')
 
 
-def main(urls):
-    """生成章节"""
-    heads = {
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36 Edg/103.0.1264.49',
-        'referer': urls,
-    }
-    response = requests.get(urls, headers=heads).text
-    html = etree.HTML(response)
-    global title
-    title = html.xpath('//*[@id="info"]/h1/text()')[0]
-    dt_list = html.xpath('//div[@id="list"]/dl//dd')[10:]
-    for num, dt in enumerate(dt_list):
-        text_href = dt.xpath('./a/@href')[0]
-        text_title = dt.xpath('./a/text()')[0]
-        if not re.match(r'^https?:/{2}\w.+$|^http?:/{2}\w.+$', text_href):
-            continue
-        if all((text_href, text_title)):
-            q.put((text_href, (text_title, num)))
+class Xxbiqudu():
+    def __init__(self, urls, p_num=16, c_num=3):
+        self.c_num = c_num
+        self.p_num = p_num
+        self.urls = urls
+        self.path_dir = None
+        self.title = None
 
 
-def create_dir(dir):
-    """生成目录"""
-    global path_dir
-    path_dir = os.path.join(os.path.dirname(__file__), dir)
+    def create_threading(self):
+        """生成进程"""
+        p_list = []  # 生产者线程队列，用于下面join
+        c_list = []  # 消费者线程队列，用于下面join
+        for i in range(16):
+            p = p_gets(self.urls)
+            p.name = f'producer{i}'
+            p.start()
+            p_list.append(p)
 
-    if not os.path.exists(path_dir):
-        # 递归创建
-        os.makedirs(path_dir)
+        for i in range(3):
+            c_html1 = c_html()
+            c_html1.name = f'consumer{i}'
+            c_html1.start()
+            c_list.append(c_html1)
 
+        for i in p_list:
+            i.join()
 
-def create_threading(urls):
-    """生成进程"""
-    p_list = []  # 生产者线程队列，用于下面join
-    c_list = []  # 消费者线程队列，用于下面join
-    for i in range(16):
-        p = p_gets(urls)
-        p.name = f'producer{i}'
-        p.start()
-        p_list.append(p)
-
-    for i in range(3):
-        c_html1 = c_html()
-        c_html1.name = f'consumer{i}'
-        c_html1.start()
-        c_list.append(c_html1)
-
-    for i in p_list:
-        i.join()
-
-    while True:
-        time.sleep(32)
-        print('生产者队列是否清空了', c.empty() and c.qsize() == 0)
-        print('消费者队列是否清空了', q.empty() and q.qsize() == 0)
-        print('是否都清空了', q.empty() and c.empty())
-        if q.empty() and q.qsize() == 0:
-            if c.empty() and c.qsize() == 0:
-                for i in c_list:
+        while True:
+            time.sleep(32)
+            print('生产者队列是否清空了', c.empty() and c.qsize() == 0)
+            print('消费者队列是否清空了', q.empty() and q.qsize() == 0)
+            print('是否都清空了', q.empty() and c.empty())
+            if q.empty() and q.qsize() == 0:
+                if c.empty() and c.qsize() == 0:
+                    for i in c_list:
+                        i.terminate()
+                for i in p_list:
                     i.terminate()
-            for i in p_list:
-                i.terminate()
-        if q.empty() and c.empty():
-            break
+            if q.empty() and c.empty():
+                break
+
+    def sum_file(self):
+        path = self.path_dir
+        list_dirs = os.listdir(path)
+        if path[-1] == '/' or path[-1] == '\\':
+            path = path[:-1]
+        # 获取文件名
+        file_title = os.path.split(path)[0]
+        file_title = os.path.split(file_title)[-1]
+
+        list_dirs = sorted(list_dirs, key=lambda x: int(x.split('-')[0]))
+        ff = open(f'./{file_title}/{file_title}.txt', 'a+', encoding='utf-8')
+        for file in tqdm(list_dirs):
+            file_path = os.path.join(path, file)
+
+            f = open(file_path, 'r', encoding='utf-8')
+            title = file.split('-')[1].split('.')[0].strip() + '\n'
+            ff.write(title)
+            ff.write(f.read() + '\n')
+            f.close()
+        else:
+            ff.close()
+
+    def main(self):
+        """生成章节"""
+        heads = {
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36 Edg/103.0.1264.49',
+            'referer': self.urls,
+        }
+        response = requests.get(self.urls, headers=heads).text
+        html = etree.HTML(response)
+        self.title = html.xpath('//*[@id="info"]/h1/text()')[0]
+        dt_list = html.xpath('//div[@id="list"]/dl//dd')[10:]
+        for num, dt in enumerate(dt_list):
+            text_href = dt.xpath('./a/@href')[0]
+            text_title = dt.xpath('./a/text()')[0]
+            if not re.match(r'^https?:/{2}\w.+$|^http?:/{2}\w.+$', text_href):
+                continue
+            if all((text_href, text_title)):
+                q.put((text_href, (text_title, num)))
+
+        self.create_dir(self.title + '/章节/')
+        self.create_threading()
+        self.sum_file()
+
+
+
+    def create_dir(self, dir):
+        """生成目录"""
+        global path_dir
+        self.path_dir = os.path.join(os.path.dirname(__file__), dir)
+        path_dir = self.path_dir
+        if not os.path.exists(self.path_dir):
+            # 递归创建
+            os.makedirs(self.path_dir)
+
 
 
 if __name__ == '__main__':
@@ -163,8 +196,10 @@ if __name__ == '__main__':
     # urls = 'https://www.xxbiqudu.com/3_3492/'
     # urls = 'https://www.xxbiqudu.com/9_9151/'
     urls = 'https://www.xxbiqudu.com/76_76035/'
-    main(urls)
-    create_dir(title + '/章节/')
-    create_threading(urls)
-    print('结束')
+    # Xxbiqudu(urls).main()
+    # main(urls)
+    # create_dir(title + '/章节/')
+    # create_threading(urls)
+    # print('结束')
+
     sys.exit()

@@ -61,14 +61,16 @@ def get_text(i, path, section):
     print(f"{title} 写入文件")
     if i is not None:
         with open(f'./{titles}/{section}/{i}_{title}.txt', 'w+', encoding='utf-8') as files:
-            files.write(title + '\r\n')
+            files.write(title.strip() + '\n')
             for text in text_list[1:-1]:
                 files.write(text.replace("$nbsp;", ''))
+            files.write("\n")
     else:
         with open(f'./{titles}/{section}/{title}.txt', 'w+', encoding='utf-8') as files:
-            files.write(title + '\r\n')
+            files.write(title.strip() + '\n')
             for text in text_list[1:-1]:
                 files.write(text.replace("$nbsp;", ''))
+            files.write("\n")
     print(f"{title} 写入完成")
 
 
@@ -79,7 +81,7 @@ def sum_text():
     file = open(f'./{titles}/{titles}.txt', 'w+', encoding="utf-8")
     for dir in tqdm(dirs_title):
         with open(f'./{titles}/{titles_text}/{dir}', 'r', encoding='utf-8') as ff:
-            file.write(ff.read())
+            file.write(ff.read().strip()+"\n\n")
             ff.close()
     file.close()
 
@@ -97,11 +99,12 @@ def main(url):
 
 def get_ali():
     ali = Aligo()
-
+    ali.move_file_to_trash(ali.get_file_list("62d80bbe9100e320545e48e0a7d918cf802e57f8")[-1].file_id)
     ali.sync_folder(
         local_folder=f"./{titles}",
-        remote_folder="62d80bbe9100e320545e48e0a7d918cf802e57f8"
+        remote_folder="62d80bbe9100e320545e48e0a7d918cf802e57f8",
     )
+
 
 def run():
     url_path = "http://www.jianlaixiaoshuo.com/"
@@ -112,4 +115,9 @@ def run():
 
 
 if __name__ == '__main__':
-    run()
+    # run()
+    get_ali()
+    # sum_text()
+
+
+

@@ -61,13 +61,13 @@ def get_text(i, path, section):
     print(f"{title} 写入文件")
     if i is not None:
         with open(f'./{titles}/{section}/{i}_{title}.txt', 'w+', encoding='utf-8') as files:
-            files.write(title.strip() + '\n')
+            files.write(title+"\n")
             for text in text_list[1:-1]:
                 files.write(text.replace("$nbsp;", ''))
             files.write("\n")
     else:
         with open(f'./{titles}/{section}/{title}.txt', 'w+', encoding='utf-8') as files:
-            files.write(title.strip() + '\n')
+            files.write(title+"\n")
             for text in text_list[1:-1]:
                 files.write(text.replace("$nbsp;", ''))
             files.write("\n")
@@ -75,7 +75,7 @@ def get_text(i, path, section):
 
 
 def sum_text():
-    print(f'./{titles}/ 合并中')
+    print(f'./{titles}/合并中')
     dirs_title = os.listdir(f'./{titles}/{titles_text}')
     dirs_title = sorted(dirs_title, key=lambda x: int(x.split('_')[0]))
     file = open(f'./{titles}/{titles}.txt', 'w+', encoding="utf-8")

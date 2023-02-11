@@ -194,9 +194,9 @@ class Xxbiqudu():
 if __name__ == '__main__':
     # urls = "https://www.xxbiqudu.com/105_105194/"
     # urls = 'https://www.xxbiqudu.com/3_3492/'
-    # urls = 'https://www.xxbiqudu.com/9_9151/'
-    urls = 'https://www.xxbiqudu.com/76_76035/'
-    # Xxbiqudu(urls).main()
+    urls = 'https://www.xxbiqudu.com/9_9151/'
+    # urls = 'https://www.xxbiqudu.com/76_76035/'
+    Xxbiqudu(urls).main()
     # main(urls)
     # create_dir(title + '/章节/')
     # create_threading(urls)

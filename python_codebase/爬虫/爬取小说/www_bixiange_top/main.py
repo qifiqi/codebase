@@ -105,7 +105,8 @@ def main(url):
 
 
 def run():
-    url_path = "https://www.bixiange.top/dsyq/17688/"
+    # url_path = "https://www.bixiange.top/dsyq/17688/"
+    url_path = "https://www.powanjuan.cc/dsyq/16402/"
     # put_list(url_path)
     # get_text(1, "https://www.ddyueshu.com/12_12497/5886238.html", "《我真没想重生啊》正文")
 

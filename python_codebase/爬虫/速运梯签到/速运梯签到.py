@@ -1,8 +1,13 @@
+# -*- coding: utf-8 -*-
+
+import time
+
 import requests
 from requests.structures import CaseInsensitiveDict
+
+
 class sutoyunClass:
     def __init__(self):
-
         self.headers = {
             "authority": "suyunti1.com",
             "accept": "application/json, text/javascript, */*; q=0.01",
@@ -20,14 +25,13 @@ class sutoyunClass:
             "sec-fetch-site": "same-origin",
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1823.51",
             "x-requested-with": "XMLHttpRequest"
-            }
+        }
         self.session = requests.session()
         self.session.headers = CaseInsensitiveDict(self.headers)
 
     @staticmethod
     def _requests_to_string(response):
         print(response.json())
-
 
     def login(self):
         url = "https://suyunti1.com/auth/login"
@@ -43,7 +47,7 @@ class sutoyunClass:
         url = 'https://suyunti1.com/user/checkin'
         response = self.session.post(url)
         self._requests_to_string(response)
-    
+
     def outlogin(self):
         url = 'https://suyunti1.com/user/logout'
         response = self.session.post(url)
@@ -53,6 +57,9 @@ class sutoyunClass:
 if __name__ == '__main__':
     expressElevator = sutoyunClass()
     expressElevator.login()
-    expressElevator.signIn()
-    expressElevator.outlogin()
+    time.sleep(3)
 
+    expressElevator.signIn()
+    time.sleep(3)
+
+    expressElevator.outlogin()

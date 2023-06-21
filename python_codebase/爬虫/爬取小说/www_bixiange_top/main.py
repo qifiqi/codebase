@@ -39,8 +39,8 @@ def put_list(url: str):
     global titles
     titles = html.css("div.desc h1::text").get("").split("(")[0]
 
-    if not os.path.exists(f'./{titles}'):
-        os.makedirs(f"./{titles}/{titles_text}/")
+    if not os.path.exists(f'./data/{titles}'):
+        os.makedirs(f"./data/{titles}/{titles_text}/")
 
     dd_list = html.css(".clearfix>li>a")
 
@@ -59,7 +59,7 @@ def get_text(i, path, section):
     print(title)
     print(f"{title} 写入文件")
     if i is not None:
-        with open(f'./{titles}/{section}/{i}_{title.strip()}.txt', 'w+', encoding='utf-8') as files:
+        with open(f'./data/{titles}/{section}/{i}_{title.strip()}.txt', 'w+', encoding='utf-8') as files:
             files.write(title + '\r\n')
             for text in text_list[:-2]:
                 if len(text) < 2:
@@ -69,7 +69,7 @@ def get_text(i, path, section):
                 files.write("\r\n")
 
     else:
-        with open(f'./{titles}/{section}/{title}.txt', 'w+', encoding='utf-8') as files:
+        with open(f'./data/{titles}/{section}/{title}.txt', 'w+', encoding='utf-8') as files:
             files.write(title + '\r\n')
             for text in text_list[:-2]:
                 if len(text) < 2:
@@ -82,12 +82,12 @@ def get_text(i, path, section):
 
 
 def sum_text():
-    print(f'./{titles}/ 合并中')
-    dirs_title = os.listdir(f'./{titles}/{titles_text}')
+    print(f'./data/{titles}/ 合并中')
+    dirs_title = os.listdir(f'./data/{titles}/{titles_text}')
     dirs_title = sorted(dirs_title, key=lambda x: int(x.split('_')[0]))
-    file = open(f'./{titles}/{titles}.txt', 'w+', encoding="utf-8")
+    file = open(f'./data/{titles}/{titles}.txt', 'w+', encoding="utf-8")
     for dir in tqdm(dirs_title):
-        with open(f'./{titles}/{titles_text}/{dir}', 'r', encoding='utf-8') as ff:
+        with open(f'./data/{titles}/{titles_text}/{dir}', 'r', encoding='utf-8') as ff:
             file.write(ff.read())
             ff.close()
     file.close()

@@ -33,8 +33,8 @@ def put_list(url: str):
     titles_text = html.css("dl dt:nth-child(8)::text").get("")
     titles = html.css("#info h1::text").get("")
 
-    if not os.path.exists(f'./{titles}'):
-        os.makedirs(f"./{titles}/{titles_text}/")
+    if not os.path.exists(f'./data/{titles}'):
+        os.makedirs(f"./data/{titles}/{titles_text}/")
 
     dd_list = html.xpath("//dl/dd")
 
@@ -52,7 +52,7 @@ def get_text(i, path, section):
     text_list = html.xpath('//div[@id="content"]//text()').getall()
     print(f"{title} 写入文件")
     if i is not None:
-        with open(f'./{titles}/{section}/{i}_{title.strip()}.txt', 'w+', encoding='utf-8') as files:
+        with open(f'./data/{titles}/{section}/{i}_{title.strip()}.txt', 'w+', encoding='utf-8') as files:
             files.write(title + '\r\n')
             for text in text_list[:-2]:
                 if len(text) < 2:
@@ -62,7 +62,7 @@ def get_text(i, path, section):
                 files.write("\r\n")
 
     else:
-        with open(f'./{titles}/{section}/{title}.txt', 'w+', encoding='utf-8') as files:
+        with open(f'./data/{titles}/{section}/{title}.txt', 'w+', encoding='utf-8') as files:
             files.write(title + '\r\n')
             for text in text_list[:-2]:
                 if len(text) < 2:
@@ -75,12 +75,12 @@ def get_text(i, path, section):
 
 
 def sum_text():
-    print(f'./{titles}/ 合并中')
-    dirs_title = os.listdir(f'./{titles}/{titles_text}')
+    print(f'./data/{titles}/ 合并中')
+    dirs_title = os.listdir(f'./data/{titles}/{titles_text}')
     dirs_title = sorted(dirs_title, key=lambda x: int(x.split('_')[0]))
-    file = open(f'./{titles}/{titles}.txt', 'w+', encoding="utf-8")
+    file = open(f'./data/{titles}/{titles}.txt', 'w+', encoding="utf-8")
     for dir in tqdm(dirs_title):
-        with open(f'./{titles}/{titles_text}/{dir}', 'r', encoding='utf-8') as ff:
+        with open(f'./data/{titles}/{titles_text}/{dir}', 'r', encoding='utf-8') as ff:
             file.write(ff.read())
             ff.close()
     file.close()
@@ -97,8 +97,12 @@ def main(url):
     time.sleep(32)
 
 
-def run():
-    url_path = "https://www.ddyueshu.com/12_12497/"
+def run(url_path=''):
+    
+
+    # url_path = "https://www.ddyueshu.com/12_12497/"
+    # url_path = "https://www.ddyueshu.com/14850_14850135/"
+    # url_path = "https://www.ddyueshu.com/5_5907/"
     # put_list(url_path)
     # get_text(1, "https://www.ddyueshu.com/12_12497/5886238.html", "《我真没想重生啊》正文")
 

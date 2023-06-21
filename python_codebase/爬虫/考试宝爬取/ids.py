@@ -15,7 +15,6 @@ import queue
 import requests
 from faker import Faker
 from openpyxl import Workbook
-
 fak = Faker(locale='zh_CN')
 row_queue = queue.Queue()
 file = ''

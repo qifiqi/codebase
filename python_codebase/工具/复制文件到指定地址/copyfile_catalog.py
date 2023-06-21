@@ -16,7 +16,7 @@ __author__ = 'Small Fu'
 
 import os
 import time
-from tqdm import tqdm
+
 from concurrent.futures import ThreadPoolExecutor
 
 file_set = set()

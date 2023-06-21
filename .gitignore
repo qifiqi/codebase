@@ -127,7 +127,7 @@ venv.bak/
 .json
 .csv
 .txt
-
+data
 # mypy
 .mypy_cache/
 .dmypy.json

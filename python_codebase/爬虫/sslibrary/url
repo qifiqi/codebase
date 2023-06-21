@@ -1,0 +1,44 @@
+
+
+
+
+
+
+
+
+
+
+
+https://epub.sslibrary.com/resource/
+
+
+
+
+
+
+
+
+
+
+
+
+curl "https://www.sslibrary.com/book/search/do" ^
+  -H "authority: www.sslibrary.com" ^
+  -H "accept: application/json, text/javascript, */*; q=0.01" ^
+  -H "accept-language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6" ^
+  -H "cache-control: no-cache" ^
+  -H "content-type: application/x-www-form-urlencoded; charset=UTF-8" ^
+  -H "cookie: uname=20230301; lv=0; fid=212111; _uid=276531478; uf=da0883eb5260151e7077b7c30a1440ec56f6e14d04bccbdc43108374a467650de471e50e8bd66f7fd2d6d58f323e2ef193a156299638e1035751d0b85711d6322158a1dc81ff45ef98cbd0d4bfed09f90d8a4c92b12beb4b2375e8419be99bb7bcf800c8d0574000bb0d85ccc4344404; _d=1691849034283; UID=276531478; vc=3AF55379F285F92DC01BCFDA624FD9A0; vc2=C4757943FA3F18F3870E87CA04F4252A; vc3=enF5AxMH7JB^%^2F6j^%^2FkGrasPplTNK8az1ysO2kYyL^%^2BpWb0zlwlUIduGfLj97lhVL5EkN0m9SxRKQeQodP52pu2OAumqs6vQv2PoV1jgHrylHBAsMe8cGk^%^2Bitm4PfjPuyLC^%^2BitEo0tFY^%^2BCxA59dIEwDEVP^%^2B1x4isSM9ptKcvjnDm2T4^%^3D34fc5d36d12390a2bc1b16b1be15edd1; cx_p_token=3caf4788c87b454599248999f9cf330f; xxtenc=bf414ec5c5150abb4dbf27aa30fcb01a; dname=Z2ZrZHh0eXRzZw^%^3D^%^3D; sfid=123859; username=111^%^2e18^%^2e96^%^2e8; account=; loginType=certify; deptid=123859; website_id=143287; website_fid=187742; website_fid_login=0; lan=zh; goc=o; login_sign=1; current_page_id=239443; mh_sign=e4e642f739277d7db7ad84864aecba3d; lo_page_index=1; cdmhsession=ODBjMjQ0MTAtMWIwNS00ZmFiLWFjY2MtMDI0ZjMzNzVlNGY2; JSESSIONID=1DCD207EB653124503632E2AC975826B.dsk44_web; msign=128936497444331; enc=4af055c1fef3b3afb52a1989ac46744f; DSSTASH_LOG=C^%^5f34^%^2dUN^%^5f123859^%^2dUS^%^5f^%^2d1^%^2dT^%^5f1691855251428" ^
+  -H "origin: https://www.sslibrary.com" ^
+  -H "pragma: no-cache" ^
+  -H "referer: https://www.sslibrary.com/" ^
+  -H "sec-ch-ua: ^\^"Not/A)Brand^\^";v=^\^"99^\^", ^\^"Microsoft Edge^\^";v=^\^"115^\^", ^\^"Chromium^\^";v=^\^"115^\^"" ^
+  -H "sec-ch-ua-mobile: ?0" ^
+  -H "sec-ch-ua-platform: ^\^"Windows^\^"" ^
+  -H "sec-fetch-dest: empty" ^
+  -H "sec-fetch-mode: cors" ^
+  -H "sec-fetch-site: same-origin" ^
+  -H "user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.203" ^
+  -H "x-requested-with: XMLHttpRequest" ^
+  --data-raw "sw=&allsw=&searchtype=&classifyId=01&isort=&field=&jsonp=&showcata=&expertsw=&bCon=&page=1&pagesize=10&sign=&enc=&searchNewLib=0&fromType=portal" ^
+  --compressed
